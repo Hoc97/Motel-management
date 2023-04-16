@@ -1,0 +1,10 @@
+{
+    "plugins": ["react"],
+    "extends": ["eslint:all", "plugin:react/all"],
+    "parser": "babel-eslint",
+    "rules": {
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
+        "no-unused-vars": "warn"
+    }
+}

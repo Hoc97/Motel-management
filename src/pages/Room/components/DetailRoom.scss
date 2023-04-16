@@ -1,0 +1,38 @@
+.header-detailroom {
+    height: 40px;
+}
+
+.content-detailroom {
+    height: calc(100vh - 40px);
+    border: 1px solid green;
+    padding: 0 20px;
+
+
+    .info-user {
+
+
+
+        .info {
+            border: 1px solid #ccc;
+
+            .ant-table-tbody {
+                .ant-table-cell {
+                    padding: 5px 16px;
+
+                    .avatar {
+                        height: 70px;
+                        width: 70px;
+                        object-fit: cover;
+                        border-radius: 100px;
+                        border: 1px solid black;
+
+                    }
+                }
+            }
+
+
+        }
+    }
+
+
+}
