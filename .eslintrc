@@ -1,10 +1,16 @@
 {
+    "files": ["**/*.{js,jsx,mjs,cjs,ts,tsx}"],
     "plugins": ["react"],
-    "extends": ["eslint:all", "plugin:react/all"],
-    "parser": "babel-eslint",
+    "extends": ["eslint:all", "plugin:react/jsx-runtime"],
+    "parser": "@babel/eslint-parser",
     "rules": {
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
         "no-unused-vars": "warn"
-    }
+    },
+    "overrides": [
+        {
+            "files": ["bin/*.jsx", "lib/*.jsx"]
+        }
+    ]
 }

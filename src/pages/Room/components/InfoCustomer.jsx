@@ -1,5 +1,6 @@
 import { Space, Table, message } from 'antd';
 import avatar from '../../../assets/Image/avatar/avatar1.jpg';
+import { useEffect } from 'react';
 
 
 const InfoCustomer = () => {
@@ -76,6 +77,8 @@ const InfoCustomer = () => {
             image: <img className='avatar' src={avatar} alt='' />
         },
     ];
+    const a = () => { };
+
     return (
         <div className='info-user'>
             <div className='info'>
