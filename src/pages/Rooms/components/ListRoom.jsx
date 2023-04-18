@@ -1,19 +1,27 @@
 import CreateRoom from '../Modal/CreateRoom';
 import RoomItem from './RoomItem';
 import { Input, Button } from 'antd';
-import { useState } from 'react';
+import { PlusCircleOutlined } from '@ant-design/icons';
+import { useEffect, useLayoutEffect, useState } from 'react';
 const ListRoom = () => {
     const { Search } = Input;
-    const [isModalCreate, setIsModalCreate] = useState(false);
-    const onSearch = (value) => console.log(value);
+    const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
+    const [query, setQuery] = useState('');
+    const onSearch = (value) => {
+        setQuery(value);
+        console.log(value);
+    };
 
     const handleShowModalCreate = () => {
-        setIsModalCreate(true);
+        setIsOpenModalCreate(true);
     };
 
     const handleCloseModalCreate = () => {
-        setIsModalCreate(false);
+        setIsOpenModalCreate(false);
     };
+
+
+
     return (
         <>
             <header className='header'>
@@ -29,12 +37,16 @@ const ListRoom = () => {
                     }}
                     enterButton
                 />
-                <Button className='btn-create' onClick={handleShowModalCreate}>Tạo loại phòng</Button>
+                <Button className='btn-create' onClick={handleShowModalCreate}>
+                    <span className='icon-create'><PlusCircleOutlined /></span>
+                    <span>Tạo loại phòng</span>
+                </Button>
             </header>
             <div className='content'>
                 <div className='list-room'>
-                    {
-                        [...Array(10)].map((item, index) => {
+                    {[...Array(10)]
+                        .filter((item, index) => index.toString().includes(query))
+                        .map((item, index) => {
                             return (
                                 <div key={index} className='room'>
                                     <RoomItem
@@ -47,7 +59,7 @@ const ListRoom = () => {
                 </div>
             </div>
             <CreateRoom
-                isModalCreate={isModalCreate}
+                isOpenModalCreate={isOpenModalCreate}
                 handleCloseModalCreate={handleCloseModalCreate}
             />
         </>

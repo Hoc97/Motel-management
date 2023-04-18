@@ -77,7 +77,6 @@ const InfoCustomer = () => {
             image: <img className='avatar' src={avatar} alt='' />
         },
     ];
-    const a = () => { };
 
     return (
         <div className='info-user'>

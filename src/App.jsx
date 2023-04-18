@@ -4,18 +4,18 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import LoginPage from './pages/login';
-import RegisterPage from './pages/register';
-import DashBoard from './pages/dashboard';
+import LoginPage from './pages/Login/Login';
+import RegisterPage from './pages/Register/Register';
+import DashBoard from './pages/Dashboard/Dashboard';
 import LayoutAdmin from './pages/Admin/LayoutAdmin';
-import Room from './pages/Room';
-import ElectricalWater from './pages/Electrical-water';
-import Contract from './pages/Contract';
-import Authorization from './pages/Authorization';
-import Setting from './pages/Setting';
-import Support from './pages/Support';
-import DetailRoom from './pages/Room/components/DetailRoom';
-import ListRoom from './pages/Room/components/ListRoom';
+import Rooms from './pages/Rooms/Rooms';
+import ElectricalWater from './pages/Electrical-water/Electrical-water';
+import Contract from './pages/Contract/Contract';
+import Authorization from './pages/Authorization/Authorization';
+import Setting from './pages/Setting/Setting';
+import Support from './pages/Support/Support';
+import DetailRoom from './pages/Rooms/components/DetailRoom';
+import ListRoom from './pages/Rooms/components/ListRoom';
 
 const Layout = () => {
   return (
@@ -56,7 +56,7 @@ const router = createBrowserRouter([
       },
       {
         path: "rooms",
-        element: <Room />,
+        element: <Rooms />,
         children: [
           {
             index: true, element: <ListRoom />

@@ -1,4 +1,4 @@
-import './Room.scss';
+import './Rooms.scss';
 import { Outlet } from "react-router-dom";
 
 

@@ -1,7 +1,12 @@
 import { Button, Divider, Form, Input, message, notification } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import './login.scss';
+import './Login.scss';
 const LoginPage = () => {
+    const onFinish = async (values) => {
+
+        const { username, password } = values;
+        console.log('value', values);
+    };
     return (
         <div className="login-page">
             <main className="main">
@@ -9,12 +14,11 @@ const LoginPage = () => {
                     <section className="wrapper">
                         <div className="heading">
                             <h2 className="text text-large">Đăng Nhập</h2>
-                            <Divider />
                         </div>
                         <Form
                             name="basic"
                             // style={{ maxWidth: 600, margin: '0 auto' }}
-                            // onFinish={onFinish}
+                            onFinish={onFinish}
                             autoComplete="off"
                         >
                             <Form.Item
@@ -38,7 +42,7 @@ const LoginPage = () => {
                             <Form.Item
                             // wrapperCol={{ offset: 6, span: 16 }}
                             >
-                                <Button type="primary" htmlType="submit" loading={true}>
+                                <Button type="primary" htmlType="submit" loading={false}>
                                     Đăng nhập
                                 </Button>
                             </Form.Item>

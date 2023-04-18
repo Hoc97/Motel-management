@@ -17,6 +17,11 @@ module.exports = [
                 ...globals.browser,
             },
         },
+        "overrides": [
+            {
+                "files": ["*.jsx", "*.js"]
+            }
+        ],
         rules: {
             // ... any rules you want
             'react/jsx-uses-react': 'error',
