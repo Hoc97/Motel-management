@@ -1,0 +1,10 @@
+{
+    "room": [
+        {
+            "total": "34",
+            "hiring": "30",
+            "checkout": "1",
+            "empty": "3"
+        }
+    ]
+}

@@ -17,16 +17,16 @@ module.exports = [
                 ...globals.browser,
             },
         },
-        "overrides": [
+        overrides: [
             {
                 "files": ["*.jsx", "*.js"]
             }
         ],
         rules: {
             // ... any rules you want
-            'react/jsx-uses-react': 'error',
+            'react/jsx-uses-react': 'warn',
             'react/jsx-uses-vars': 'error',
-            "no-unused-vars": "error"
+            "no-unused-vars": "warn"
         },
         // ... others are omitted for brevity
     },

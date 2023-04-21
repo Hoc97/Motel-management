@@ -15,3 +15,22 @@ import axios from '../utils/axios-customize';
 // export const callLogout = () => {
 //     return axios.post('/api/v1/auth/logout')
 // }
+
+const getListRoom = () => {
+    return axios.get('/api/v1/rooms');
+};
+
+const postCreateRoom = () => {
+    // return axios.post('/api/v1/rooms');
+};
+
+const getDashBoard = () => {
+    return axios.get('/api/v1/dashboard');
+};
+
+
+export {
+    getListRoom,
+    getDashBoard,
+    postCreateRoom
+};

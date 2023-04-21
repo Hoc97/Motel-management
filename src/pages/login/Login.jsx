@@ -23,13 +23,12 @@ const LoginPage = () => {
                         >
                             <Form.Item
                                 labelCol={{ span: 24 }} //whole column
-                                label="Email"
+                                label="Email/SĐT"
                                 name="username"
-                                rules={[{ required: true, message: 'Email không được để trống!' }]}
+                                rules={[{ required: true, message: 'Email/SĐT không được để trống!' }]}
                             >
                                 <Input />
                             </Form.Item>
-
                             <Form.Item
                                 labelCol={{ span: 24 }} //whole column
                                 label="Mật khẩu"
@@ -38,20 +37,11 @@ const LoginPage = () => {
                             >
                                 <Input.Password />
                             </Form.Item>
-
-                            <Form.Item
-                            // wrapperCol={{ offset: 6, span: 16 }}
-                            >
+                            <Form.Item>
                                 <Button type="primary" htmlType="submit" loading={false}>
                                     Đăng nhập
                                 </Button>
                             </Form.Item>
-                            <Divider>Or</Divider>
-                            <p className="text text-normal">Chưa có tài khoản ?
-                                <span>
-                                    <Link to='/register' > Đăng Ký </Link>
-                                </span>
-                            </p>
                         </Form>
                     </section>
                 </div>

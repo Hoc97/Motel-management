@@ -4,15 +4,17 @@ import {
     ExceptionOutlined,
     DollarCircleOutlined,
     UserOutlined,
-    SettingOutlined
+    SettingOutlined,
+    DownOutlined
 } from '@ant-design/icons';
 import { HiDocumentText } from 'react-icons/hi';
 import { BiSupport } from 'react-icons/bi';
-import { Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme, Dropdown, Space } from 'antd';
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import './LayoutAdmin.scss';
 import logo from '../../assets/Image/Admin/Avatar.png';
+import { useDispatch } from 'react-redux';
 
 const { Header, Sider, Content } = Layout;
 
@@ -63,32 +65,38 @@ const LayoutAdmin = () => {
         }
     }, []);
     // const user = useSelector(state => state.account.user);
-    // const navigate = useNavigate();
-    // const dispatch = useDispatch();
-    // const handleLogout = async () => {
-    //     const res = await callLogout();
-    //     if (res && res.data) {
-    //         dispatch(doLogoutAction());
-    //         message.success('Đăng xuất thành công');
-    //         navigate('/');
-    //     }
-    // };
+    const user = {
+        fullName: 'Hoc@gmail.com'
+    };
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const handleLogout = async () => {
+        // const res = await callLogout();
+        // if (res && res.data) {
+        //     dispatch(doLogoutAction());
+        //     message.success('Đăng xuất thành công');
+        //     navigate('/');
+        // }
+    };
 
 
-    // const itemsDropdown = [
-    //     {
-    //         label: <label style={{ cursor: 'pointer' }}>Quản lý tài khoản</label>,
-    //         key: 'account',
-    //     },
-    //     {
-    //         label: <label
-    //             style={{ cursor: 'pointer' }}
-    //             onClick={() => handleLogout()}
-    //         >Đăng xuất</label>,
-    //         key: 'logout',
-    //     },
+    const itemsDropdown = [
+        {
+            label: <label style={{ cursor: 'pointer' }}>Quản lý tài khoản</label>,
+            key: 'account',
+        },
+        {
+            label: <label
+                style={{ cursor: 'pointer' }}
+                onClick={() => handleLogout()}
+            >Đăng xuất</label>,
+            key: 'logout',
+        },
 
-    // ];
+    ];
+
+
+
     return (
         <Layout
             style={{ minHeight: '100vh' }}
@@ -116,9 +124,20 @@ const LayoutAdmin = () => {
                 />
             </Sider>
             <Layout>
+                <div className='admin-header'>
+                    <Dropdown menu={{ items: itemsDropdown }} >
+                        <a onClick={(e) => e.preventDefault()}>
+                            <Space>
+                                {user?.fullName}
+                                <DownOutlined />
+                            </Space>
+                        </a>
+                    </Dropdown>
+                </div>
+
                 <Content
                     style={{
-                        margin: '24px 16px',
+                        margin: '12px 16px',
                         minHeight: 280,
                         background: '#f2f3f5',
                     }}

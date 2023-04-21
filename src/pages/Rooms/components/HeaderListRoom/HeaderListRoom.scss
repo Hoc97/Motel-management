@@ -1,0 +1,35 @@
+.header-listroom {
+    .filter {
+        font-weight: 600;
+        cursor: pointer;
+        height: 55px;
+        background: rgba(48, 114, 255, .03);
+        padding: 16px;
+        border-bottom: 1px solid #e8ebee;
+        margin-bottom: 5px;
+
+        span {
+            padding: 10px 20px;
+            padding-bottom: 17px;
+
+            &.active {
+                color: #3072ff;
+                border-bottom: 2px solid #3072ff;
+            }
+        }
+    }
+
+    .input {
+        padding: 10px 15px;
+
+        input {
+            padding: 8px 12px;
+            font-weight: 500;
+        }
+    }
+}
+
+
+:where(.css-dev-only-do-not-override-mxhywb).ant-table-wrapper .ant-table-title {
+    padding: 0px;
+}

@@ -1,11 +1,11 @@
 import './DetailRoom.scss';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Button, Tabs, Breadcrumb } from 'antd';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Button, Tabs, Breadcrumb, Table } from 'antd';
 import { BsHouseAdd } from 'react-icons/bs';
 import InfoCustomer from './InfoCustomer';
 import Expense from './Expense';
 const DetailRoom = () => {
-    const { id } = useParams();
+    const { state: { name } } = useLocation();
     const nav = useNavigate();
     const onChange = (key) => {
         console.log(key);
@@ -22,6 +22,8 @@ const DetailRoom = () => {
             children: <Expense />,
         },
     ];
+
+
     return (
         <div>
             <header className='header-detailroom'>
@@ -37,7 +39,7 @@ const DetailRoom = () => {
                 />
             </header>
             <div className='content-detailroom'>
-                <h3>Phòng trọ số {id}</h3>
+                <h3>{name}</h3>
                 <Tabs defaultActiveKey="1" items={items} onChange={onChange} size={'large'} centered />
             </div>
         </div>

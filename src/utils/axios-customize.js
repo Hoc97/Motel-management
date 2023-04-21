@@ -1,11 +1,24 @@
 import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
+import rooms from '../services/fakeAPI.json';
+import dashboard from '../services/fakeAPIDashBoard.json';
 
-const baseUrl = import.meta.env.REACT_APP_BACKEND_URL;
-
+const baseUrl = import.meta.env.VITE_APP_BACKEND_URL;
+const mockAPI = import.meta.env.VITE_APP_MOCK_API;
 const instance = axios.create({
     baseURL: baseUrl,
     withCredentials: true,
 });
+
+
+const mock = new MockAdapter(instance);
+
+if (mockAPI === "true") {
+    mock.onGet("http://localhost:3000/api/v1/rooms").reply(200, rooms);
+    mock.onGet("/api/v1/dashboard").reply(200, dashboard);
+} else {
+    mock.restore();
+}
 
 instance.defaults.headers.common = { 'Authorization': `Bearer ${localStorage.getItem('access_token')}` };
 

@@ -81,7 +81,12 @@ const InfoCustomer = () => {
     return (
         <div className='info-user'>
             <div className='info'>
-                <Table columns={columns} dataSource={data} pagination={false}
+                <Table
+                    style={{ borderRadius: '10px', backgroundColor: 'yellow' }}
+                    columns={columns}
+                    dataSource={data}
+                    pagination={false}
+
                 />
             </div>
         </div>

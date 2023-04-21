@@ -79,6 +79,18 @@ body {
 }
 
 
+//message 
+.ant-message-notice-content {
+    .ant-message-custom-content.ant-message-success {
+        .highlight-blue {
+            color: #0849c9;
+        }
+
+        .highlight-red {
+            color: #de4b1b;
+        }
+    }
+}
 
 // //Scrollbar CSS
 html *::-webkit-scrollbar {

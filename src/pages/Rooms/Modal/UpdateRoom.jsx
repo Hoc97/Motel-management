@@ -1,39 +1,44 @@
-import { Modal, Form, Input, Button } from 'antd';
+import { Modal, Form, Input, Button, Select, message } from 'antd';
 import { useEffect, useState } from 'react';
-import { BsHouseAdd } from 'react-icons/bs';
 
-const CreateRoom = ({
-    isOpenModalCreate,
-    handleCloseModalCreate,
+const UpdateRoom = ({
+    isOpenModalUpdate,
+    handleCloseModalUpdate,
+    roomUpdate
 }) => {
+    const [messageApi, contextHolder] = message.useMessage();
+    const { Option } = Select;
+    const statusRoom = [
+        {
+
+            text: 'Đang thuê'
+        },
+        {
+
+            text: 'Sắp trả'
+        },
+        {
+
+            text: 'Phòng trống'
+        }
+    ];
     const [data, setData] = useState({
         name: '',
-        numberRoom: '',
+        status: '1',
     });
     const [form] = Form.useForm();
     useEffect(() => {
         form.setFieldsValue({
             name: data.name,
-            numberRoom: data.numberRoom,
+            status: data.status,
         });
-    }, [data]);
-    const handleSubmit = (values) => {
-        console.log('Received values of form: ', values);
-        handleCloseModalCreate(false);
-        form.resetFields();
-        // setLoading(true);
-        // setTimeout(() => {
-        //   setLoading(false);
-        //   setOpen(false);
-        // }, 3000);
-    };
+    }, []);
 
     useEffect(() => {
-        if (isOpenModalCreate) {
+        if (isOpenModalUpdate) {
             fetchDataRoom();
-            // console.log('data vào', isOpenModalCreate);
         }
-    }, [isOpenModalCreate]);
+    }, [isOpenModalUpdate]);
 
     const fetchDataRoom = async () => {
         // let res = await apiRoom();
@@ -49,17 +54,35 @@ const CreateRoom = ({
         //     });
         // }
         setData({
-            name: 'Phòng',
-            numberRoom: '1',
+            name: roomUpdate.name,
+            status: roomUpdate.status,
         });
+    };
+
+
+    const handleSubmit = (values) => {
+        console.log('Received values of form: ', values);
+        handleCloseModalUpdate(false);
+        form.resetFields();
+        message.success(
+            <span>Đã cập nhật
+                <b className='highlight-blue'> {values.name}</b> với trạng thái
+                <b className='highlight-blue'> {values.status}</b>
+            </span>);
+        // message.success(`Đã cập nhật ${values.name} với trạng thái ${<a>{values.status}</a>}`);
+        // setLoading(true);
+        // setTimeout(() => {
+        //   setLoading(false);
+        //   setOpen(false);
+        // }, 3000);
     };
     return (
         <Modal
             forceRender
             width={550}
-            title="Tạo phòng"
-            open={isOpenModalCreate}
-            onCancel={handleCloseModalCreate}
+            title="Cập nhật phòng"
+            open={isOpenModalUpdate}
+            onCancel={handleCloseModalUpdate}
             footer={[
                 <Button
                     form="myForm" key="submit" htmlType="submit" type="primary" onClick={() => {
@@ -71,7 +94,7 @@ const CreateRoom = ({
                                 console.log('Validate Failed:', info);
                             });
                     }}>
-                    Tạo phòng
+                    Cập nhật phòng
                 </Button>
             ]}
         >
@@ -93,17 +116,19 @@ const CreateRoom = ({
                 </Form.Item>
                 <Form.Item
                     labelCol={{ span: 7 }}
-                    label={`Số phòng cần tạo:`}
-                    name="numberRoom"
+                    label={`Trạng thái:`}
+                    name="status"
                     rules={[
-                        { required: true, message: 'Cần nhập số phòng!' }
+                        { required: true, message: 'Cần nhập trạng thái!' }
                     ]}
                 >
-                    <Input addonAfter={<BsHouseAdd />} />
+                    <Select>
+                        {statusRoom.map((item, index) => <Option key={item.text}>{item.text}</Option>)}
+                    </Select>
                 </Form.Item>
             </Form>
         </Modal>
     );
 };
 
-export default CreateRoom;
+export default UpdateRoom;

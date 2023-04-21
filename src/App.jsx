@@ -16,6 +16,7 @@ import Setting from './pages/Setting/Setting';
 import Support from './pages/Support/Support';
 import DetailRoom from './pages/Rooms/components/DetailRoom';
 import ListRoom from './pages/Rooms/components/ListRoom';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 const Layout = () => {
   return (
@@ -48,7 +49,11 @@ const router = createBrowserRouter([
   // },
   {
     path: "/",
-    element: <LayoutAdmin />,
+    element:
+      <ProtectedRoute>
+        <LayoutAdmin />
+      </ProtectedRoute>
+    ,
     errorElement: <div>404 NOT FOUND</div>,
     children: [
       {
