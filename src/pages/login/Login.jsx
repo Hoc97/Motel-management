@@ -1,11 +1,13 @@
 import { Button, Divider, Form, Input, message, notification } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.scss';
+import { callLogin } from '../../services/api';
 const LoginPage = () => {
     const onFinish = async (values) => {
-
         const { username, password } = values;
         console.log('value', values);
+        let res = await callLogin(username, password);
+        console.log('res', res);
     };
     return (
         <div className="login-page">
