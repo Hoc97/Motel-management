@@ -9,12 +9,14 @@ import {
 } from '@ant-design/icons';
 import { HiDocumentText } from 'react-icons/hi';
 import { BiSupport } from 'react-icons/bi';
+import { IoMdArrowDropdown } from 'react-icons/io';
+
 import { Layout, Menu, theme, Dropdown, Space } from 'antd';
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import './LayoutAdmin.scss';
 import logo from '../../assets/Image/Admin/Avatar.png';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const { Header, Sider, Content } = Layout;
 
@@ -64,10 +66,8 @@ const LayoutAdmin = () => {
             setActiveMenu(window.location.pathname.replace('/', ''));
         }
     }, []);
-    // const user = useSelector(state => state.account.user);
-    const user = {
-        fullName: 'Hoc@gmail.com'
-    };
+    const { username } = useSelector(state => state.account.user);
+    console.log('user', username);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleLogout = async () => {
@@ -127,10 +127,8 @@ const LayoutAdmin = () => {
                 <div className='admin-header'>
                     <Dropdown menu={{ items: itemsDropdown }} >
                         <a onClick={(e) => e.preventDefault()}>
-                            <Space>
-                                {user?.fullName}
-                                <DownOutlined />
-                            </Space>
+                            Welcome {username}
+                            <span className='icon'><IoMdArrowDropdown /></span>
                         </a>
                     </Dropdown>
                 </div>

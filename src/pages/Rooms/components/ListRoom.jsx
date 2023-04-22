@@ -86,6 +86,9 @@ const ListRoom = () => {
         fetchDataListRoom();
     }, []);
 
+    const dataSource = listRoom
+        .filter(room => room.status.includes(query))
+        .filter(item => item.name.toLowerCase().includes(debouncedValue.toLowerCase()));
     const fetchDataListRoom = async () => {
         let res = await getListRoom();
         let newData = res.data.map(room => {
@@ -119,15 +122,13 @@ const ListRoom = () => {
                 <div className='list-room'>
                     <Table
                         columns={columns}
-                        dataSource={listRoom
-                            .filter(room => room.status.includes(query))
-                            .filter(item => item.name.toLowerCase().includes(debouncedValue.toLowerCase()))
-                        }
+                        dataSource={dataSource}
                         bordered
                         pagination={false}
                         title={() => <HeaderListRoom
                             setQuery={setQuery}
                             setSearch={setSearch}
+                            currentFilterRoom={dataSource.length}
                         />}
                     />
 
