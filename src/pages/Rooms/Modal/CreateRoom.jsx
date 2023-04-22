@@ -1,10 +1,12 @@
 import { Modal, Form, Input, Button } from 'antd';
 import { useEffect, useState } from 'react';
 import { BsHouseAdd } from 'react-icons/bs';
+import { postCreateRoom } from '../../../services/api';
 
 const CreateRoom = ({
     isOpenModalCreate,
     handleCloseModalCreate,
+    fetchDataListRoom
 }) => {
     const [data, setData] = useState({
         name: '',
@@ -17,37 +19,24 @@ const CreateRoom = ({
             numberRoom: data.numberRoom,
         });
     }, [data]);
-    const handleSubmit = (values) => {
+    const handleSubmit = async (values) => {
         console.log('Received values of form: ', values);
-        handleCloseModalCreate(false);
-        form.resetFields();
-        // setLoading(true);
-        // setTimeout(() => {
-        //   setLoading(false);
-        //   setOpen(false);
-        // }, 3000);
+        const { name, numberRoom } = values;
+        let res = await postCreateRoom(name.trim(), numberRoom.trim());
+        if (res.status === 201) {
+            handleCloseModalCreate(false);
+            form.resetFields();
+            fetchDataListRoom();
+        }
     };
 
     useEffect(() => {
         if (isOpenModalCreate) {
             fetchDataRoom();
-            // console.log('data vào', isOpenModalCreate);
         }
     }, [isOpenModalCreate]);
 
     const fetchDataRoom = async () => {
-        // let res = await apiRoom();
-        // if (res.DT === 0) {
-        //     setData(res.data);
-        // message.success('Đăng nhập tài khoản thành công!');
-        // }else {
-        //     notification.error({
-        //         message: "Có lỗi xảy ra",
-        //         description:
-        //             res.message && Array.isArray(res.message) ? res.message[0] : res.message,
-        //         duration: 5
-        //     });
-        // }
         setData({
             name: 'Phòng',
             numberRoom: '1',

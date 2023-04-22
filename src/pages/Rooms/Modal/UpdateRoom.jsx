@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 const UpdateRoom = ({
     isOpenModalUpdate,
     handleCloseModalUpdate,
-    roomUpdate
+    roomUpdate,
+    fetchDataListRoom
 }) => {
     const [messageApi, contextHolder] = message.useMessage();
     const { Option } = Select;
     const statusRoom = [
         {
-
-            text: 'Đang thuê'
+            text: 'Đang cho thuê'
         },
         {
 

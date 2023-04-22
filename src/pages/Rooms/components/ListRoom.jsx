@@ -32,7 +32,7 @@ const ListRoom = () => {
             dataIndex: 'status',
             render: (text) => {
                 let color = 'black';
-                if (text === "Đang thuê") {
+                if (text === "Đang cho thuê") {
                     color = '#2c8949';
                 }
                 if (text === "Sắp trả") {
@@ -83,10 +83,10 @@ const ListRoom = () => {
         setIsOpenModalUpdate(false);
     };
     useEffect(() => {
-        fetchData();
+        fetchDataListRoom();
     }, []);
 
-    const fetchData = async () => {
+    const fetchDataListRoom = async () => {
         let res = await getListRoom();
         let newData = res.data.map(room => {
             return {
@@ -135,11 +135,13 @@ const ListRoom = () => {
             <CreateRoom
                 isOpenModalCreate={isOpenModalCreate}
                 handleCloseModalCreate={handleCloseModalCreate}
+                fetchDataListRoom={fetchDataListRoom}
             />
             <UpdateRoom
                 roomUpdate={roomUpdate}
                 isOpenModalUpdate={isOpenModalUpdate}
                 handleCloseModalUpdate={handleCloseModalUpdate}
+                fetchDataListRoom={fetchDataListRoom}
             />
         </>
     );

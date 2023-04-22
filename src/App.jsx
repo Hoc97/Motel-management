@@ -23,15 +23,15 @@ import { useEffect, useLayoutEffect } from 'react';
 import NotFound from './components/NotFound/NotFound';
 import Loading from './components/Loading/Loading';
 
-const Layout = () => {
-  return (
-    <>
-      <Header />
-      <Outlet />
-      <Footer />
-    </>
-  );
-};
+// const Layout = () => {
+//   return (
+//     <>
+//       <Header />
+//       <Outlet />
+//       <Footer />
+//     </>
+//   );
+// };
 
 const router = createBrowserRouter([
   // {

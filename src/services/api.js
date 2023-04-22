@@ -21,8 +21,13 @@ const getListRoom = () => {
     return axios.get('/api/v1/rooms');
 };
 
-const postCreateRoom = () => {
-    // return axios.post('/api/v1/rooms');
+const postCreateRoom = (name, quantity) => {
+    return axios.post('/api/v1/rooms', { name },
+        {
+            headers: {
+                "quantity": quantity
+            }
+        });
 };
 
 const getDashBoard = () => {

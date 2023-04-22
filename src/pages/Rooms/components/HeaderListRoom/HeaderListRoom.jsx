@@ -18,7 +18,7 @@ const HeaderListRoom = ({ setQuery, setSearch }) => {
         setSearch(value.target.value);
     };
 
-    let arrFilter = ["All", "Đang thuê", "Sắp trả", "Phòng trống"];
+    let arrFilter = ["All", "Đang cho thuê", "Sắp trả", "Phòng trống"];
     return (
         <div className='header-listroom'>
             <div className='filter'>
