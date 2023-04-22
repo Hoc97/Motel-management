@@ -12,8 +12,8 @@ const DashBoard = () => {
     }, []);
 
     const fetchDataDashBoard = async () => {
-        let res = await getDashBoard();
-        setDataDashBoard(res.room);
+        // let res = await getDashBoard();
+        // setDataDashBoard(res.room);
     };
     const arrayIcon = [<BsHouse />, <FiPackage />, <ImWarning />, <BsBox />];
     const arrayTitle = ['Tổng số phòng', 'Đang thuê', 'Sắp trả', 'Phòng trống'];

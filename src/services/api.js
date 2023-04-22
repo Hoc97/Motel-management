@@ -5,7 +5,8 @@ import axios from '../utils/axios-customize';
 // }
 
 const callLogin = (username, password) => {
-    return axios.post('/api/auth/signin', { username, password });
+    return axios.post('/api/auth/sign-in', { username, password });
+
 };
 
 // export const callFetchAccount = () => {

@@ -3,23 +3,20 @@ import { Navigate } from "react-router-dom";
 // import NotPermitted from "./NotPermitted";
 
 const RoleBaseRoute = (props) => {
-    // const isAdminRoute = window.location.pathname.startsWith('/admin');
-    const isAdminRoute = true;
-    // const user = useSelector(state => state.account.user);
-    // const userRole = user.role;
-    const userRole = 'ADMIN';
+    const isAdminRoute = window.location.pathname.startsWith('/');
+    const user = useSelector(state => state.account.user);
+    const userRole = user.roles[0];
 
-    if (isAdminRoute && userRole === 'ADMIN') {
+    if (isAdminRoute && userRole === 'ROLE_ADMIN') {
         return (<>{props.children}</>);
     }
-    // else {
-    //     return (<NotPermitted />)
-    // }
+    else {
+        return (<div>Không được phép truy cập</div>);
+    }
 };
 
 const ProtectedRoute = (props) => {
-    // const isAuthenticated = useSelector(state => state.account.isAuthenticated);
-    const isAuthenticated = true;
+    const isAuthenticated = useSelector(state => state.account.isAuthenticated);
     return (
         <>
             {isAuthenticated === true ?

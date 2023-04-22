@@ -128,7 +128,7 @@ const LayoutAdmin = () => {
                     <Dropdown menu={{ items: itemsDropdown }} >
                         <a onClick={(e) => e.preventDefault()}>
                             <Space>
-                                {user?.fullName}
+                                Welcome {user?.fullName}
                                 <DownOutlined />
                             </Space>
                         </a>

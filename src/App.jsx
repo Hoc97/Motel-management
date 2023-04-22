@@ -17,6 +17,11 @@ import Support from './pages/Support/Support';
 import DetailRoom from './pages/Rooms/components/DetailRoom';
 import ListRoom from './pages/Rooms/components/ListRoom';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import { useDispatch, useSelector } from 'react-redux';
+import { doGetAccountAction } from './redux/accountSlice/accountSlice';
+import { useEffect } from 'react';
+import NotFound from './components/NotFound/NotFound';
+import Loading from './components/Loading/Loading';
 
 const Layout = () => {
   return (
@@ -54,7 +59,7 @@ const router = createBrowserRouter([
         <LayoutAdmin />
       </ProtectedRoute>
     ,
-    errorElement: <div>404 NOT FOUND</div>,
+    errorElement: <NotFound />,
     children: [
       {
         index: true, element: <DashBoard />
@@ -105,8 +110,38 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(state => state.account.isLoading);
+
+  const getAccount = async () => {
+    // if (
+    //   window.location.pathname === '/login'
+    //   || window.location.pathname === '/register'
+    // )
+    //   return;
+    let data = JSON.parse(localStorage.getItem("user"));
+    console.log('data', data);
+    if (data) {
+      dispatch(doGetAccountAction(data));
+    }
+  };
+
+  useEffect(() => {
+    getAccount();
+  }, []);
   return (
-    <RouterProvider router={router} />
+    <>
+      {
+        // isLoading === true
+        true
+          || window.location.pathname === '/login'
+          || window.location.pathname === '/register'
+          ?
+          <RouterProvider router={router} />
+          :
+          <Loading />
+      }
+    </>
   );
 };
 
