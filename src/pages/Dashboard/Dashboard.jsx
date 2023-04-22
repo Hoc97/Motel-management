@@ -33,7 +33,6 @@ const DashBoard = () => {
             <div className='content'>
                 {Object.keys(dataDashBoard).length > 0 && (
                     Object.keys(dataDashBoard).map((item, index) => {
-                        console.log('item', item);
                         return (
                             <div key={index} className='item'>
                                 <div className={`box box-${index + 1}`}>
