@@ -49,14 +49,13 @@ export const accountSlide = createSlice({
 
         doLogoutAction: (state, action) => {
             localStorage.removeItem('access_token');
+            localStorage.removeItem('user');
             state.isAuthenticated = false;
             state.user = {
-                email: "",
-                phone: "",
-                fullName: "",
-                role: "",
-                avatar: "",
-                id: ""
+                "id": '',
+                "username": "",
+                "email": "",
+                "roles": [],
             };
         },
 
