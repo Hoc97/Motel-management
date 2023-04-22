@@ -20,11 +20,11 @@ const LoginPage = () => {
             //setCookie 1day = 24hours
             setCookie('refreshToken', res.data.refreshToken, 24);
             dispatch(doLoginAction(res.data));
-            setTimeout(() => {
-                message.success('Đăng nhập tài khoản thành công!');
-                setIsLoading(false);
-                nav('/');
-            }, 1000);
+
+            message.success('Đăng nhập tài khoản thành công!');
+            setIsLoading(false);
+            nav('/');
+
         } else {
             notification.error({
                 message: "Thông tin đăng nhập không chính xác",

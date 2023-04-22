@@ -44,10 +44,16 @@ const checkCookie = () => {
     }
 };
 
+const sleep = (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+};
+
+
 
 export {
     useDebounce,
     setCookie,
     getCookie,
-    checkCookie
+    checkCookie,
+    sleep
 };

@@ -4,6 +4,7 @@ import { FiPackage } from 'react-icons/fi';
 import { ImWarning } from 'react-icons/im';
 import { getDashBoard } from '../../services/api';
 import { useEffect, useState } from 'react';
+import { sleep } from '../../components/common/Common';
 
 const DashBoard = () => {
     const [dataDashBoard, setDataDashBoard] = useState([]);
@@ -13,9 +14,9 @@ const DashBoard = () => {
 
     const fetchDataDashBoard = async () => {
         let res = await getDashBoard();
-        let currentlyRenting = res.data.currentlyRenting;
-        let soonToBeReturn = res.data.soonToBeReturn;
-        let roomAvailable = res.data.roomAvailable;
+        let currentlyRenting = res?.data?.currentlyRenting;
+        let soonToBeReturn = res?.data?.soonToBeReturn;
+        let roomAvailable = res?.data?.roomAvailable;
         let newData = {
             totalRoom: currentlyRenting + soonToBeReturn + roomAvailable,
             currentlyRenting,
@@ -23,10 +24,10 @@ const DashBoard = () => {
             roomAvailable
         };
         setDataDashBoard(newData);
+        console.time();
     };
     const arrayIcon = [<BsHouse />, <FiPackage />, <ImWarning />, <BsBox />];
     const arrayTitle = ['Tổng số phòng', 'Đang thuê', 'Sắp trả', 'Phòng trống'];
-    console.log('dataDashBoard', dataDashBoard, Object.keys(dataDashBoard));
     return (
         <div className='dashboard'>
             <header className='header'>DashBoard</header>

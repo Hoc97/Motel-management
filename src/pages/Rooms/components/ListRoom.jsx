@@ -98,6 +98,7 @@ const ListRoom = () => {
                     handleShowModalUpdate={handleShowModalUpdate}
                     room={room}
                     roomUpdate={roomUpdate}
+                    fetchDataListRoom={fetchDataListRoom}
                 />
             };
         });
@@ -111,7 +112,7 @@ const ListRoom = () => {
                 </div>
                 <Button className='btn-create' onClick={handleShowModalCreate}>
                     <span className='icon-create'><PlusCircleOutlined /></span>
-                    <span>Tạo loại phòng</span>
+                    <span>Tạo phòng</span>
                 </Button>
             </header>
             <div className='content'>

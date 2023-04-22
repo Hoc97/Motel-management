@@ -1,5 +1,6 @@
-import { Modal, Form, Input, Button, Select, message } from 'antd';
+import { Modal, Form, Input, Button, Select, message, notification } from 'antd';
 import { useEffect, useState } from 'react';
+import { patchEditRoom } from '../../../services/api';
 
 const UpdateRoom = ({
     isOpenModalUpdate,
@@ -14,11 +15,9 @@ const UpdateRoom = ({
             text: 'Đang cho thuê'
         },
         {
-
             text: 'Sắp trả'
         },
         {
-
             text: 'Phòng trống'
         }
     ];
@@ -32,49 +31,39 @@ const UpdateRoom = ({
             name: data.name,
             status: data.status,
         });
-    }, []);
+    }, [data]);
 
     useEffect(() => {
         if (isOpenModalUpdate) {
-            fetchDataRoom();
+            getDataRoom();
         }
     }, [isOpenModalUpdate]);
-
-    const fetchDataRoom = async () => {
-        // let res = await apiRoom();
-        // if (res.DT === 0) {
-        //     setData(res.data);
-        // message.success('Đăng nhập tài khoản thành công!');
-        // }else {
-        //     notification.error({
-        //         message: "Có lỗi xảy ra",
-        //         description:
-        //             res.message && Array.isArray(res.message) ? res.message[0] : res.message,
-        //         duration: 5
-        //     });
-        // }
+    const getDataRoom = async () => {
         setData({
             name: roomUpdate.name,
             status: roomUpdate.status,
         });
     };
 
-
-    const handleSubmit = (values) => {
-        console.log('Received values of form: ', values);
-        handleCloseModalUpdate(false);
-        form.resetFields();
-        message.success(
-            <span>Đã cập nhật
-                <b className='highlight-blue'> {values.name}</b> với trạng thái
-                <b className='highlight-blue'> {values.status}</b>
-            </span>);
-        // message.success(`Đã cập nhật ${values.name} với trạng thái ${<a>{values.status}</a>}`);
-        // setLoading(true);
-        // setTimeout(() => {
-        //   setLoading(false);
-        //   setOpen(false);
-        // }, 3000);
+    const handleSubmit = async (values) => {
+        const { name, status } = values;
+        // thiếu status
+        let res = await patchEditRoom(roomUpdate.id, name.trim(), status.trim());
+        if (res.status === 204) {
+            handleCloseModalUpdate(false);
+            form.resetFields();
+            message.success(
+                <span>Đã cập nhật
+                    <b className='highlight-blue'> {values.name}</b> với trạng thái
+                    <b className='highlight-blue'> {values.status}</b>
+                </span>);
+            fetchDataListRoom();
+        } else {
+            notification.error({
+                message: "Cập nhật phòng không thành công",
+                duration: 5
+            });
+        }
     };
     return (
         <Modal

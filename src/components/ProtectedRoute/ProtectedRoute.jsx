@@ -16,7 +16,7 @@ const RoleBaseRoute = (props) => {
 };
 
 const ProtectedRoute = (props) => {
-    let { username } = JSON.parse(localStorage.getItem("user"));
+    let { username } = JSON.parse(localStorage.getItem("user") || false);
     return (
         <>
             {username ?

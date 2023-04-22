@@ -21,6 +21,14 @@ const getListRoom = () => {
     return axios.get('/api/v1/rooms');
 };
 
+const patchEditRoom = (id, name, status) => {
+    return axios.patch(`/api/v1/rooms/${id}`, { name, status });
+};
+
+const deleteRoom = (id) => {
+    return axios.delete(`/api/v1/rooms/${id}`);
+};
+
 const postCreateRoom = (name, quantity) => {
     return axios.post('/api/v1/rooms', { name },
         {
@@ -39,5 +47,7 @@ export {
     getListRoom,
     getDashBoard,
     postCreateRoom,
-    callLogin
+    callLogin,
+    patchEditRoom,
+    deleteRoom
 };
