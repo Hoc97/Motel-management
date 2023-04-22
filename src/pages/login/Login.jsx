@@ -12,11 +12,8 @@ const LoginPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const onFinish = async (values) => {
         const { username, password } = values;
-        console.log('value', values);
         setIsLoading(true);
         let res = await callLogin(username, password);
-        console.log('res', res);
-
         if (res?.status === 200) {
             localStorage.setItem('access_token', res.data.accessToken);
             localStorage.setItem('user', JSON.stringify(res.data));

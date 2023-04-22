@@ -10,16 +10,16 @@ const RoleBaseRoute = (props) => {
     if (isAdminRoute && userRole === 'ROLE_ADMIN') {
         return (<>{props.children}</>);
     }
-    else {
-        return (<div>Không được phép truy cập</div>);
-    }
+    // else {
+    //     return (<div>Không được phép truy cập</div>);
+    // }
 };
 
 const ProtectedRoute = (props) => {
-    const isAuthenticated = useSelector(state => state.account.isAuthenticated);
+    let { username } = JSON.parse(localStorage.getItem("user"));
     return (
         <>
-            {isAuthenticated === true ?
+            {username ?
                 <>
                     <RoleBaseRoute>
                         {props.children}

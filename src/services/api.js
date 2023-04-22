@@ -26,7 +26,7 @@ const postCreateRoom = () => {
 };
 
 const getDashBoard = () => {
-    return axios.get('/api/v1/dashboard');
+    return axios.get('/api/v1/rooms/summary-room');
 };
 
 

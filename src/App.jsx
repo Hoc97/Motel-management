@@ -19,7 +19,7 @@ import ListRoom from './pages/Rooms/components/ListRoom';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { doGetAccountAction } from './redux/accountSlice/accountSlice';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import NotFound from './components/NotFound/NotFound';
 import Loading from './components/Loading/Loading';
 
@@ -112,7 +112,6 @@ const router = createBrowserRouter([
 const App = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.account.isLoading);
-
   const getAccount = async () => {
     // if (
     //   window.location.pathname === '/login'
@@ -120,27 +119,25 @@ const App = () => {
     // )
     //   return;
     let data = JSON.parse(localStorage.getItem("user"));
-    console.log('data', data);
     if (data) {
       dispatch(doGetAccountAction(data));
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getAccount();
   }, []);
   return (
     <>
-      {
-        // isLoading === true
-        true
+      {/* {
+        isLoading === true
           || window.location.pathname === '/login'
           || window.location.pathname === '/register'
-          ?
-          <RouterProvider router={router} />
-          :
+          ? */}
+      <RouterProvider router={router} />
+      {/* :
           <Loading />
-      }
+      } */}
     </>
   );
 };
