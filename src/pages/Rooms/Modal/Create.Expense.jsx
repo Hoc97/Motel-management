@@ -95,6 +95,7 @@ const CreateExpense = ({
     );
     return (
         <Modal
+            style={{ marginTop: '-40px' }}
             forceRender
             width={700}
             title="Tạo chi phí mới"

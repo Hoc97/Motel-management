@@ -93,6 +93,7 @@ const SetupExpense = ({
     }, [listRoomName]);
     return (
         <Modal
+            style={{ marginTop: '-40px' }}
             maskClosable={false}
             forceRender
             className='modal-expense'

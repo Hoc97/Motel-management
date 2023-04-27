@@ -57,12 +57,10 @@ const UpdateExpense = ({
     const handleSubmit = async (values) => {
         console.log('value', values);
         let { name, formPayment, money, unitprice, roomsName, applyAllRooms } = values;
-        console.log('roomIds', roomsName, listRoom);
         let roomIds = roomsName.map(item => {
-            console.log(listRoom.find(room => room.name === item));
+            // console.log(listRoom.find(room => room.name === item));
             return listRoom.find(room => room.name === item).id;
         });
-        console.log('roomIds', roomIds, roomsName);
         let paymentMethod = {
             "price": money,
             "isUnitPrice": true,
@@ -112,6 +110,7 @@ const UpdateExpense = ({
     );
     return (
         <Modal
+            style={{ marginTop: '-40px' }}
             forceRender
             width={700}
             title={`Cập nhật chi phí ID ${expenseUpdate.id}`}
