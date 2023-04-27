@@ -8,42 +8,26 @@ const CreateRoom = ({
     handleCloseModalCreate,
     fetchDataListRoom
 }) => {
-    const [data, setData] = useState({
-        name: '',
-        numberRoom: '',
-    });
     const [form] = Form.useForm();
     useEffect(() => {
         form.setFieldsValue({
-            name: data.name,
-            numberRoom: data.numberRoom,
+            name: 'Phòng',
+            numberRoom: '1',
         });
-    }, [data]);
+    }, []);
     const handleSubmit = async (values) => {
-        console.log('Received values of form: ', values);
         const { name, numberRoom } = values;
         let res = await postCreateRoom(name.trim(), numberRoom.trim());
         if (res.status === 201) {
-            handleCloseModalCreate(false);
+            handleCloseModalCreate();
             form.resetFields();
             fetchDataListRoom();
         }
     };
 
-    useEffect(() => {
-        if (isOpenModalCreate) {
-            fetchDataRoom();
-        }
-    }, [isOpenModalCreate]);
-
-    const fetchDataRoom = async () => {
-        setData({
-            name: 'Phòng',
-            numberRoom: '1',
-        });
-    };
     return (
         <Modal
+            maskClosable={false}
             forceRender
             width={550}
             title="Tạo phòng"
@@ -65,7 +49,6 @@ const CreateRoom = ({
             ]}
         >
             <Form
-                initialValues={data}
                 form={form}
                 className='form-create-room'
                 name="basic"

@@ -52,7 +52,6 @@ instance.interceptors.response.use(function (response) {
     // Do something with response error
     if (error.config && error.response && +error.response.status === 401 && !error.config.headers[NO_RETRY_HEADER]) {
         const access_token = await handleRefreshToken();
-        console.log('access_token', access_token);
         error.config.headers[NO_RETRY_HEADER] = 'true';
         if (access_token) {
             error.config.headers['Authorization'] = `Bearer ${access_token}`;

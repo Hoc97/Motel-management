@@ -48,6 +48,9 @@ const sleep = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 };
 
+const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 
 export {
@@ -55,5 +58,6 @@ export {
     setCookie,
     getCookie,
     checkCookie,
-    sleep
+    sleep,
+    numberWithCommas
 };

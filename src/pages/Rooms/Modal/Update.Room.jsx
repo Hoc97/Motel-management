@@ -8,7 +8,6 @@ const UpdateRoom = ({
     roomUpdate,
     fetchDataListRoom
 }) => {
-    const [messageApi, contextHolder] = message.useMessage();
     const { Option } = Select;
     const statusRoom = [
         {
@@ -21,36 +20,20 @@ const UpdateRoom = ({
             text: 'Phòng trống'
         }
     ];
-    const [data, setData] = useState({
-        name: '',
-        status: '1',
-    });
+
     const [form] = Form.useForm();
     useEffect(() => {
         form.setFieldsValue({
-            name: data.name,
-            status: data.status,
-        });
-    }, [data]);
-
-    useEffect(() => {
-        if (isOpenModalUpdate) {
-            getDataRoom();
-        }
-    }, [isOpenModalUpdate]);
-    const getDataRoom = async () => {
-        setData({
             name: roomUpdate.name,
             status: roomUpdate.status,
         });
-    };
+    }, [roomUpdate]);
 
     const handleSubmit = async (values) => {
         const { name, status } = values;
-        // thiếu status
         let res = await patchEditRoom(roomUpdate.id, name.trim(), status.trim());
         if (res.status === 204) {
-            handleCloseModalUpdate(false);
+            handleCloseModalUpdate();
             form.resetFields();
             message.success(
                 <span>Đã cập nhật
@@ -67,6 +50,7 @@ const UpdateRoom = ({
     };
     return (
         <Modal
+            maskClosable={false}
             forceRender
             width={550}
             title="Cập nhật phòng"
@@ -88,7 +72,6 @@ const UpdateRoom = ({
             ]}
         >
             <Form
-                initialValues={data}
                 form={form}
                 className='form-create-room'
                 name="basic"
@@ -112,7 +95,7 @@ const UpdateRoom = ({
                     ]}
                 >
                     <Select>
-                        {statusRoom.map((item, index) => <Option key={item.text}>{item.text}</Option>)}
+                        {statusRoom.map((item) => <Option key={item.text}>{item.text}</Option>)}
                     </Select>
                 </Form.Item>
             </Form>

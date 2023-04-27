@@ -18,6 +18,7 @@ import './LayoutAdmin.scss';
 import logo from '../../assets/Image/Admin/Avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { doLogoutAction } from '../../redux/accountSlice/accountSlice';
+import ImageDefault from '../../assets/Image/avatar/avatar-default.png';
 
 const { Header, Sider, Content } = Layout;
 
@@ -78,7 +79,6 @@ const LayoutAdmin = () => {
 
     };
 
-
     const itemsDropdown = [
         {
             label: <label style={{ cursor: 'pointer' }}>Quản lý tài khoản</label>,
@@ -126,7 +126,8 @@ const LayoutAdmin = () => {
                 <div className='admin-header'>
                     <Dropdown menu={{ items: itemsDropdown }} >
                         <a onClick={(e) => e.preventDefault()}>
-                            Welcome {username}
+                            <span>Welcome {username}</span>
+                            <img className='image-default' src={ImageDefault} alt='' />
                             <span className='icon'><IoMdArrowDropdown /></span>
                         </a>
                     </Dropdown>

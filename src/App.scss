@@ -41,7 +41,6 @@ body {
 .btn-round {
     width: 32px;
     height: 32px;
-    cursor: pointer;
     border-radius: 100%;
     background-color: #eee;
     align-items: center;
@@ -56,7 +55,7 @@ body {
     border: 1px solid #babfc3;
 
     &.btn-delete {
-        background-color: #ee3a4e;
+        background-color: rgb(238, 58, 78);
         color: #fff;
         border: transparent
     }

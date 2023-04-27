@@ -1,7 +1,6 @@
 .manage-room {
     .header {
         width: 100%;
-        height: 60px;
         position: relative;
 
 
@@ -14,29 +13,45 @@
             line-height: 28px;
         }
 
-        .search {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-
-        .btn-create {
-            margin-top: 10px;
-            margin-left: 10px;
-            margin-bottom: 10px;
+        .menu-item {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
 
-            .icon-create {
-                color: #15a05c;
+            .btn-create {
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+
+                .icon-create {
+                    color: #15a05c;
+                }
             }
+
+            .btn-setup {
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+
+                .icon-create {
+                    margin-top: 3px;
+                    color: #15a05c;
+                }
+            }
+
         }
+
+
     }
 
     .content {
-        margin-top: 20px;
+        margin-top: 10px;
 
         .list-room {
 
@@ -65,7 +80,74 @@
     }
 }
 
+.modal-expense {
+    .header {
+        display: flex;
+        justify-content: flex-end;
 
+        .btn-setup {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+
+            .icon-create {
+                margin-top: 3px;
+                transform: scale(1.2);
+            }
+        }
+    }
+
+    :where(.css-dev-only-do-not-override-mxhywb).ant-table-wrapper .ant-table-tbody > tr > td {
+        padding: 5px 5px;
+    }
+
+    span {
+
+        .status-numberroom {
+            color: rgb(44, 137, 73);
+
+            .all {
+                color: #2c8949;
+            }
+        }
+    }
+
+    .icon-disabled {
+        height: 30px;
+        width: 30px;
+        object-fit: contain;
+    }
+
+    .edit {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+
+        .icon {
+            display: flex;
+            align-items: center;
+        }
+
+        a[disabled] {
+            color: rgba(0, 0, 0, 0.25);
+            cursor: not-allowed;
+
+            &.btn-delete {
+                background-color: rgba(238, 58, 78, 0.25);
+                color: rgba(0, 0, 0, 0.25);
+            }
+        }
+
+    }
+}
+
+
+
+.roomId {
+    margin-bottom: 0px;
+}
 
 .ant-modal-body {
     .form-create-room {

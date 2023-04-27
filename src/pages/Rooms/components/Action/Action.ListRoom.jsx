@@ -3,7 +3,7 @@ import { FiTrash2 } from 'react-icons/fi';
 import { EditOutlined } from '@ant-design/icons';
 import { message, notification, Popconfirm } from 'antd';
 import { deleteRoom } from '../../../../services/api';
-const Action = ({ handleShowModalUpdate, room, fetchDataListRoom }) => {
+const ActionListRoom = ({ handleShowModalUpdate, room, fetchDataListRoom }) => {
     const handleUpdate = () => {
         handleShowModalUpdate(room);
     };
@@ -22,7 +22,7 @@ const Action = ({ handleShowModalUpdate, room, fetchDataListRoom }) => {
     };
     return (
         <div className='edit'>
-            <span className='icon btn-round' onClick={() => handleUpdate()}><EditOutlined /></span>
+            <a className='icon btn-round' onClick={() => handleUpdate()}><EditOutlined /></a>
             <Popconfirm
                 placement="topRight"
                 title={`Bạn muốn xóa ${room.name}?`}
@@ -31,10 +31,10 @@ const Action = ({ handleShowModalUpdate, room, fetchDataListRoom }) => {
                 okText="Có"
                 cancelText="Không"
             >
-                <span className='icon  btn-round btn-delete'><FiTrash2 /></span>
+                <a className='icon btn-round btn-delete'><FiTrash2 /></a>
             </Popconfirm>
         </div>
     );
 };
 
-export default Action;
+export default ActionListRoom;

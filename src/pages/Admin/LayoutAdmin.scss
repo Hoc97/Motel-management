@@ -8,13 +8,26 @@
         padding: 0 15px;
         font-weight: 600 !important;
         margin-right: 20px;
-        position: relative;
 
-        .icon {
-            position: absolute;
-            top: 18px;
 
+        .ant-dropdown-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+
+            .image-default {
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .icon {
+                margin-top: 5px;
+            }
         }
+
     }
 
     .logo {

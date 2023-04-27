@@ -42,6 +42,18 @@ const getDashBoard = () => {
     return axios.get('/api/v1/rooms/summary-room');
 };
 
+const getListExpense = () => {
+    return axios.get('/api/v1/expenses');
+};
+
+const postCreateExpense = (name, paymentMethod, roomIds, applyAllRooms) => {
+    return axios.post('/api/v1/expenses', { name, paymentMethod, roomIds, applyAllRooms });
+};
+
+const patchEditExpense = (id, name, paymentMethod, roomIds, applyAllRooms) => {
+    return axios.patch(`/api/v1/expenses/${id}`, { name, paymentMethod, roomIds, applyAllRooms });
+};
+
 
 export {
     getListRoom,
@@ -49,5 +61,8 @@ export {
     postCreateRoom,
     callLogin,
     patchEditRoom,
-    deleteRoom
+    deleteRoom,
+    getListExpense,
+    postCreateExpense,
+    patchEditExpense
 };
