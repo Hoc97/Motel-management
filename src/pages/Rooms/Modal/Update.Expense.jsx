@@ -12,7 +12,6 @@ const UpdateExpense = ({
 }) => {
     const { Option } = Select;
     const [form] = Form.useForm();
-
     const [component, setComponent] = useState('moneypayment');
     const [checkAllRooms, setCheckAllRooms] = useState(true);
     const [unit, setUnit] = useState('kwh');
@@ -21,12 +20,34 @@ const UpdateExpense = ({
             setComponent(e.target.value);
         }
     };
+
     useEffect(() => {
         form.validateFields(['roomsName']);
     }, [checkAllRooms, form]);
 
     const onCheckboxChange = (e) => {
         setCheckAllRooms(!e.target.checked);
+        if (checkAllRooms) {
+            form.setFieldsValue({
+                roomsName: listRoomName?.map(item => item) ?? [],
+            });
+        } else {
+            form.setFieldsValue({
+                roomsName: expenseUpdate.rooms?.map(item => item.name) ?? [],
+            });
+        }
+    };
+
+    const onChangeRoomsName = (value) => {
+        if (listRoomName.length === value.length) {
+            form.setFieldsValue({
+                applyAllRooms: true,
+            });
+        } else {
+            form.setFieldsValue({
+                applyAllRooms: false,
+            });
+        }
     };
 
     const onChangeUnit = (value) => {
@@ -40,6 +61,7 @@ const UpdateExpense = ({
             setComponent('moneypayment');
         }
     }, [expenseUpdate]);
+    console.log('checkAllRooms', checkAllRooms);
     useEffect(() => {
         form.setFieldsValue({
             name: expenseUpdate.name,
@@ -52,10 +74,8 @@ const UpdateExpense = ({
         });
     }, [expenseUpdate, component]);
 
-
-
     const handleSubmit = async (values) => {
-        console.log('value', values);
+
         let { name, formPayment, money, unitprice, roomsName, applyAllRooms } = values;
         let roomIds = roomsName.map(item => {
             // console.log(listRoom.find(room => room.name === item));
@@ -85,14 +105,24 @@ const UpdateExpense = ({
                 "isUnitPrice": true,
             };
         }
-
+        console.log('handleSubmit>>>>>>>>>>>>', 'id:', expenseUpdate.id, 'name:', name, 'paymentMethod:', paymentMethod, 'roomIds:', roomIds, 'applyAllRooms:', applyAllRooms);
         let res = await patchEditExpense(expenseUpdate.id, name, paymentMethod, roomIds, applyAllRooms);
         console.log('res', res);
         if (res.status === 204) {
+            setCheckAllRooms(true);
             setIsOpenModalUpdateExpense(false);
             // form.resetFields();
             fetchDataExpense();
         }
+    };
+
+    const handleCancel = () => {
+        form.setFieldsValue({
+            applyAllRooms: expenseUpdate.applyAll,
+            roomsName: expenseUpdate.rooms?.map(item => item.name) ?? [],
+        });
+        setCheckAllRooms(true);
+        setIsOpenModalUpdateExpense(false);
     };
 
     const suffixSelector = (
@@ -115,7 +145,7 @@ const UpdateExpense = ({
             width={700}
             title={`Cập nhật chi phí ID ${expenseUpdate.id}`}
             open={isOpenModalUpdateExpense}
-            onCancel={() => setIsOpenModalUpdateExpense(false)}
+            onCancel={() => handleCancel()}
             footer={[
                 <Button
                     form="myForm" key="submit" htmlType="submit" type="primary" onClick={() => {
@@ -198,6 +228,7 @@ const UpdateExpense = ({
                 )}
 
                 <Form.Item
+
                     className='roomId'
                     labelCol={{ span: 7 }}
                     label={`Áp dụng cho:`}
@@ -206,7 +237,7 @@ const UpdateExpense = ({
                         { required: checkAllRooms, message: 'Cần nhập phòng!' }
                     ]}
                 >
-                    <Select mode="multiple" allowClear >
+                    <Select mode="multiple" allowClear disabled={!checkAllRooms} onChange={onChangeRoomsName} >
                         {listRoomName.map((item, index) => <Option value={item} key={index}>{item}</Option>)}
                     </Select>
                 </Form.Item>
@@ -214,7 +245,7 @@ const UpdateExpense = ({
                     name="applyAllRooms"
                     valuePropName="checked"
                     wrapperCol={{
-                        offset: 7,
+                        offset: 2,
                     }}
                 >
                     <Checkbox checked={checkAllRooms} onChange={onCheckboxChange}>Tất cả phòng</Checkbox>

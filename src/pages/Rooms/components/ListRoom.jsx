@@ -99,6 +99,7 @@ const ListRoom = () => {
 
     const fetchDataListRoom = async () => {
         let res = await getListRoom();
+        console.log('res', res.data);
         let newData = res.data.map(room => {
             return {
                 id: room.id,

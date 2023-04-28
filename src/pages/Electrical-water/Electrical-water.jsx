@@ -1,5 +1,7 @@
 import { Form, Input, InputNumber, Popconfirm, Table } from 'antd';
 import { useState } from 'react';
+import { numberWithCommas } from '../../components/common/Common';
+import iconDisabled from '../../assets/Image/icon/disabled.png';
 
 const ElectricalWater = () => {
     const data = [

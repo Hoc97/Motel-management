@@ -35,10 +35,10 @@ const CreateExpense = ({
 
     useEffect(() => {
         form.setFieldsValue({
-            name: "",
+            name: "Test",
             formPayment: component,
-            unitprice: '',
-            money: '',
+            unitprice: '2',
+            money: '1',
             roomsName: [],
             applyAllRooms: false,
             unit: unit
@@ -191,7 +191,7 @@ const CreateExpense = ({
                         { required: checkAllRooms, message: 'Cần nhập phòng!' }
                     ]}
                 >
-                    <Select mode="multiple" allowClear >
+                    <Select mode="multiple" allowClear disabled={!checkAllRooms} >
                         {listRoomName.map((item, index) => <Option value={item} key={index}>{item}</Option>)}
                     </Select>
                 </Form.Item>
