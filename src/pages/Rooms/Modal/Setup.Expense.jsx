@@ -1,7 +1,6 @@
-import { Space, Table, Tag, Modal, Button, Form, Input, InputNumber, Typography, Popconfirm } from 'antd';
+import { Table, Modal, Button } from 'antd';
 import { useState, useEffect, useCallback } from 'react';
 import { FileAddOutlined } from '@ant-design/icons';
-// import { postCreateRoom } from '../../../services/api';
 import ActionExpense from '../components/Action/Action.Expense';
 import { numberWithCommas } from '../../../components/common/Common';
 import iconDisabled from '../../../assets/Image/icon/disabled.png';
@@ -73,14 +72,13 @@ const SetupExpense = ({
         }
     }, [listRoomName]);
 
-
     const fetchDataExpense = useCallback(async () => {
         let res = await getListExpense();
         let newData = res.data.map(expense => {
             return {
                 id: expense.id,
                 key: expense.id,  //unique key
-                name: <span>{expense.name}<br /> <span className='status-numberroom'>Áp dụng cho {listRoomName.length === expense.rooms.length ? <b className='all'>Tất cả</b> : expense.rooms.length} phòng</span></span>,
+                name: <span>{expense.name}<br /> <span className='status-numberroom'>Áp dụng cho {listRoomName.length === expense.rooms.length ? <b className='all'>Tất cả ({expense.rooms.length})</b> : expense.rooms.length} phòng</span></span>,
                 money: !expense.unitPriceFlag ? numberWithCommas(expense.price) : <img className='icon-disabled' src={iconDisabled} alt='' />,
                 unitprice: expense.unitPriceFlag ? `${numberWithCommas(expense.price)}${expense.unit.replace('VNĐ', '')}` : <img className='icon-disabled' src={iconDisabled} alt='' />,
                 action: <ActionExpense

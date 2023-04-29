@@ -1,22 +1,16 @@
 .header-detailroom {
     height: 40px;
+
 }
 
 .content-detailroom {
     height: calc(100vh - 40px);
-    border: 1px solid green;
     padding: 0 20px;
+    text-align: center;
 
 
     .info-user {
-
-
-
         .info {
-            border: 1px solid #ccc;
-            // border-radius: 8px;
-
-
 
             .ant-table-tbody {
                 .ant-table-cell {
@@ -34,6 +28,38 @@
 
         }
     }
+
+    .expense-detail {
+        .icon-disabled {
+            height: 30px;
+            width: 30px;
+            object-fit: contain;
+        }
+
+        .edit {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+
+            .icon {
+                display: flex;
+                align-items: center;
+            }
+
+            a[disabled] {
+                color: rgba(0, 0, 0, 0.25);
+                cursor: not-allowed;
+
+                &.btn-delete {
+                    background-color: rgba(238, 58, 78, 0.25);
+                    color: rgba(0, 0, 0, 0.25);
+                }
+            }
+
+        }
+    }
+
+
 
 
 }

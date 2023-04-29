@@ -34,7 +34,7 @@ const items = [
         icon: <ExceptionOutlined />
     },
     {
-        label: <Link to='/electrical'>Quản lý chi phí điện nước</Link>,
+        label: <Link to='/electrical'>Quản lý doanh thu</Link>,
         key: 'electrical',
         icon: <DollarCircleOutlined />
     },

@@ -1,4 +1,4 @@
-import { Modal, Form, Input, Button } from 'antd';
+import { Modal, Form, Input, Button, notification } from 'antd';
 import { useEffect, useState } from 'react';
 import { BsHouseAdd } from 'react-icons/bs';
 import { postCreateRoom } from '../../../services/api';
@@ -22,9 +22,13 @@ const CreateRoom = ({
             handleCloseModalCreate();
             form.resetFields();
             fetchDataListRoom();
+        } else {
+            notification.error({
+                message: "Tạo phòng không thành công",
+                duration: 5
+            });
         }
     };
-
     return (
         <Modal
             maskClosable={false}

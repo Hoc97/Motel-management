@@ -1,14 +1,13 @@
 import './DetailRoom.scss';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Button, Tabs, Breadcrumb, Table } from 'antd';
-import { BsHouseAdd } from 'react-icons/bs';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { Tabs, Breadcrumb } from 'antd';
 import InfoCustomer from './InfoCustomer';
-import Expense from './Expense';
+import ExpenseDetail from './ExpenseDetail';
 const DetailRoom = () => {
-    const { state: { name } } = useLocation();
-    const nav = useNavigate();
+    const { state } = useLocation();
+    const { id } = useParams();
     const onChange = (key) => {
-        console.log(key);
+        // console.log('key', key);
     };
     const items = [
         {
@@ -19,10 +18,9 @@ const DetailRoom = () => {
         {
             key: '2',
             label: `Chi phí`,
-            children: <Expense />,
+            children: <ExpenseDetail id={id} />,
         },
     ];
-
 
     return (
         <div>
@@ -39,7 +37,7 @@ const DetailRoom = () => {
                 />
             </header>
             <div className='content-detailroom'>
-                <h3>{name}</h3>
+                <h2>{state?.name}</h2>
                 <Tabs defaultActiveKey="1" items={items} onChange={onChange} size={'large'} centered />
             </div>
         </div>

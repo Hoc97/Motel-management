@@ -1,6 +1,8 @@
 import { Space, Table, message } from 'antd';
 import avatar from '../../../assets/Image/avatar/avatar1.jpg';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import ActionInfo from './Action/Action.Info';
+import UpdateInfo from '../Modal/Update.Info';
 
 
 const InfoCustomer = () => {
@@ -9,74 +11,122 @@ const InfoCustomer = () => {
     };
     const columns = [
         {
-            title: 'Index',
+            title: 'ID',
             dataIndex: 'key',
-            key: 'key',
             width: '5%',
             rowScope: 'row',
+            align: 'center',
         },
         {
             title: 'Name',
             dataIndex: 'name',
-            key: 'name',
             width: '25%',
+            align: 'center',
             render: (text) => <a>{text}</a>,
         },
         {
             title: 'Email',
             dataIndex: 'email',
-            key: 'email',
             width: '25%',
+            align: 'center',
         },
         {
             title: 'SDT',
             dataIndex: 'sdt',
-            key: 'sdt',
             width: '15%',
+            align: 'center',
         },
         {
-            title: 'Image',
+            title: 'CMND',
             dataIndex: 'image',
-            key: 'image',
             width: '10%',
+            align: 'center',
         },
         {
             title: 'Action',
             dataIndex: 'action',
-            key: 'action',
-            width: '20%',
-            render: (_, record) => (
-                <Space size="middle">
-                    <a onClick={() => handleEdit('sửa tên')}>Sửa tên</a>
-                    <a onClick={() => handleEdit('xóa tên')}>Xóa</a>
-                </Space>
-            ),
+            width: '15%',
+            align: 'center',
         },
     ];
+
+
+    const [isOpenModalUpdate, setIsOpenModalUpdate] = useState(false);
+    const [infoUpdate, setInfoUpdate] = useState({});
+    const [listInfo, setListInfo] = useState([]);
+    const handleShowModalUpdate = (room) => {
+        setInfoUpdate(room);
+        setIsOpenModalUpdate(true);
+    };
+
+
+    const handleCloseModalUpdate = () => {
+        setIsOpenModalUpdate(false);
+    };
+
+
 
     const data = [
         {
             key: '1',
-            name: 'John Brown',
-            email: 'JohnBrown@gmail.com',
+            name: 'Nguyễn Văn A',
+            email: 'ngvana@gmail.com',
             sdt: '0123456789',
-            image: <img className='avatar' src={avatar} alt='' />
+            image: <img className='avatar' src={avatar} alt='' />,
+
+            action: <ActionInfo
+                handleShowModalUpdate={handleShowModalUpdate}
+            // room={room}
+            // fetchDataListRoom={fetchDataListRoom}
+            />
         },
         {
             key: '2',
-            name: 'Jim Green',
-            email: 'JohnBrown@gmail.com',
+            name: 'Nguyễn Văn B',
+            email: 'ngvanb@gmail.com',
             sdt: '0123456789',
-            image: <img className='avatar' src={avatar} alt='' />
+            image: <img className='avatar' src={avatar} alt='' />,
+            action: <ActionInfo
+                handleShowModalUpdate={handleShowModalUpdate}
+            // room={room}
+            // fetchDataListRoom={fetchDataListRoom}
+            />
         },
         {
             key: '3',
-            name: 'Joe Black',
-            email: 'JohnBrown@gmail.com',
+            name: 'Nguyễn Văn c',
+            email: 'ngvanc@gmail.com',
             sdt: '0123456789',
-            image: <img className='avatar' src={avatar} alt='' />
+            image: <img className='avatar' src={avatar} alt='' />,
+            action: <ActionInfo
+                handleShowModalUpdate={handleShowModalUpdate}
+            // room={room}
+            // fetchDataListRoom={fetchDataListRoom}
+            />
         },
     ];
+
+    useEffect(() => {
+        fetchDataListInfo();
+    }, []);
+
+    const fetchDataListInfo = async () => {
+        // let res = await getListRoom();
+        // let newData = res.data.map(room => {
+        //     return {
+        //         id: room.id,
+        //         key: room.id,  //unique key
+        //         name: room.name,
+        //         status: room.status,
+        //         action: <ActionListRoom
+        //             handleShowModalUpdate={handleShowModalUpdate}
+        //             room={room}
+        //             fetchDataListRoom={fetchDataListRoom}
+        //         />
+        //     };
+        // });
+        // setListInfo(newData);
+    };
 
     return (
         <div className='info-user'>
@@ -86,9 +136,14 @@ const InfoCustomer = () => {
                     columns={columns}
                     dataSource={data}
                     pagination={false}
-
                 />
             </div>
+            <UpdateInfo
+                isOpenModalUpdate={isOpenModalUpdate}
+                infoUpdate={infoUpdate}
+                handleCloseModalUpdate={handleCloseModalUpdate}
+                fetchDataListInfo={fetchDataListInfo}
+            />
         </div>
     );
 };

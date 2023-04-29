@@ -15,6 +15,8 @@ const UpdateExpense = ({
     const [component, setComponent] = useState('moneypayment');
     const [checkAllRooms, setCheckAllRooms] = useState(true);
     const [unit, setUnit] = useState('kwh');
+    const [disabledExpense, setDisableExpense] = useState(false);
+
     const onComponentChange = (e) => {
         if (e.target.value) {
             setComponent(e.target.value);
@@ -53,15 +55,16 @@ const UpdateExpense = ({
     const onChangeUnit = (value) => {
         setUnit(value);
     };
-    console.log('expenseUpdate', expenseUpdate);
     useEffect(() => {
         if (expenseUpdate.unitPriceFlag) {
             setComponent('unitpricepayment');
         } else {
             setComponent('moneypayment');
         }
+        const arrayExpenseDefault = ['Tiền phòng', 'Tiền điện', 'Tiền nước', 'Tiền wifi', 'Tiền rác'];
+        const disabledExpense = arrayExpenseDefault.some(item => item === expenseUpdate.name);
+        setDisableExpense(disabledExpense);
     }, [expenseUpdate]);
-    console.log('checkAllRooms', checkAllRooms);
     useEffect(() => {
         form.setFieldsValue({
             name: expenseUpdate.name,
@@ -78,7 +81,6 @@ const UpdateExpense = ({
 
         let { name, formPayment, money, unitprice, roomsName, applyAllRooms } = values;
         let roomIds = roomsName.map(item => {
-            // console.log(listRoom.find(room => room.name === item));
             return listRoom.find(room => room.name === item).id;
         });
         let paymentMethod = {
@@ -105,14 +107,17 @@ const UpdateExpense = ({
                 "isUnitPrice": true,
             };
         }
-        console.log('handleSubmit>>>>>>>>>>>>', 'id:', expenseUpdate.id, 'name:', name, 'paymentMethod:', paymentMethod, 'roomIds:', roomIds, 'applyAllRooms:', applyAllRooms);
         let res = await patchEditExpense(expenseUpdate.id, name, paymentMethod, roomIds, applyAllRooms);
-        console.log('res', res);
         if (res.status === 204) {
             setCheckAllRooms(true);
             setIsOpenModalUpdateExpense(false);
             // form.resetFields();
             fetchDataExpense();
+        } else {
+            notification.error({
+                message: "Cập nhật chi phí không thành công",
+                duration: 5
+            });
         }
     };
 
@@ -138,6 +143,8 @@ const UpdateExpense = ({
             </Select>
         </Form.Item>
     );
+
+
     return (
         <Modal
             style={{ marginTop: '-40px' }}
@@ -174,7 +181,7 @@ const UpdateExpense = ({
                         { required: true, message: 'Cần nhập tên chi phí!' }
                     ]}
                 >
-                    <Input />
+                    <Input disabled={disabledExpense} />
                 </Form.Item>
                 <Form.Item
                     labelCol={{ span: 7 }}

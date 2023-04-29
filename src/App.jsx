@@ -22,6 +22,7 @@ import { doGetAccountAction } from './redux/accountSlice/accountSlice';
 import { useEffect, useLayoutEffect } from 'react';
 import NotFound from './components/NotFound/NotFound';
 import Loading from './components/Loading/Loading';
+import RollbackPage from './pages/Rooms/components/RollbackPage';
 
 // const Layout = () => {
 //   return (
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
           {
             path: ":id",
             element: <DetailRoom />,
+          },
+          {
+            path: "rollback",
+            element: <RollbackPage />,
           },
         ]
       },

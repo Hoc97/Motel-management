@@ -54,6 +54,30 @@ const patchEditExpense = (id, name, paymentMethod, roomIds, applyAllRooms) => {
     return axios.patch(`/api/v1/expenses/${id}`, { name, paymentMethod, roomIds, applyAllRooms });
 };
 
+const getListRollBack = () => {
+    return axios.get('/api/v1/rooms?status=Phòng đã xóa');
+};
+
+const patchRollbackRoom = (id) => {
+    return axios.patch(`/api/v1/rooms/${id}/rollback`);
+};
+
+
+const getExpenseDetail = (id) => {
+    return axios.get(`/api/v1/rooms/${id}/expenses`);
+};
+
+
+const patchEditExpensedetail = (roomID, expenseID, price) => {
+    return axios.patch(`/api/v1/rooms/${roomID}/expenses/${expenseID}`, { price });
+};
+
+
+
+
+
+
+
 
 export {
     getListRoom,
@@ -64,5 +88,9 @@ export {
     deleteRoom,
     getListExpense,
     postCreateExpense,
-    patchEditExpense
+    patchEditExpense,
+    getListRollBack,
+    patchRollbackRoom,
+    getExpenseDetail,
+    patchEditExpensedetail
 };

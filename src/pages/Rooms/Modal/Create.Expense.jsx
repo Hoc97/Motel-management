@@ -1,4 +1,4 @@
-import { Modal, Form, Input, Button, Radio, Checkbox, Select, Cascader, Space, InputNumber } from 'antd';
+import { Modal, Form, Input, Button, Radio, Checkbox, Select, InputNumber, notification } from 'antd';
 import { useEffect, useState, memo } from 'react';
 import { postCreateExpense } from '../../../services/api';
 
@@ -32,13 +32,12 @@ const CreateExpense = ({
         setUnit(value);
     };
 
-
     useEffect(() => {
         form.setFieldsValue({
-            name: "Test",
+            name: '',
             formPayment: component,
-            unitprice: '2',
-            money: '1',
+            unitprice: '',
+            money: '',
             roomsName: [],
             applyAllRooms: false,
             unit: unit
@@ -77,6 +76,11 @@ const CreateExpense = ({
             setIsOpenModalCreateExpense(false);
             // form.resetFields();
             fetchDataExpense();
+        } else {
+            notification.error({
+                message: "Tạo chi phí không thành công",
+                duration: 5
+            });
         }
     };
 

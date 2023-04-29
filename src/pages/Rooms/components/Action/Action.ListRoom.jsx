@@ -1,4 +1,3 @@
-import './Action.scss';
 import { FiTrash2 } from 'react-icons/fi';
 import { EditOutlined } from '@ant-design/icons';
 import { message, notification, Popconfirm } from 'antd';

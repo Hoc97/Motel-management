@@ -3,6 +3,7 @@ import UpdateRoom from '../Modal/Update.Room';
 import { Button, Table, Tag } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { SlNote } from 'react-icons/sl';
+import { AiOutlineRollback } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import HeaderListRoom from './HeaderListRoom/HeaderListRoom';
 import ActionListRoom from './Action/Action.ListRoom';
@@ -58,7 +59,7 @@ const ListRoom = () => {
             width: '10%',
         },
     ];
-
+    const [isLoading, setIsLoading] = useState(true);
     const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
     const [isOpenModalUpdate, setIsOpenModalUpdate] = useState(false);
     const [isOpenModalSetupExpense, setIsOpenModalSetupExpense] = useState(false);
@@ -99,7 +100,6 @@ const ListRoom = () => {
 
     const fetchDataListRoom = async () => {
         let res = await getListRoom();
-        console.log('res', res.data);
         let newData = res.data.map(room => {
             return {
                 id: room.id,
@@ -113,6 +113,7 @@ const ListRoom = () => {
                 />
             };
         });
+        setIsLoading(false);
         setListRoom(newData);
     };
 
@@ -134,11 +135,18 @@ const ListRoom = () => {
                         <span className='icon-create'><SlNote /></span>
                         <span>Cài đặt chi phí</span>
                     </Button>
+                    <div>
+                        <Button className='btn-rollback' onClick={() => nav(`/rooms/rollback`)}>
+                            <span className='icon-create'><AiOutlineRollback /></span>
+                            <span>Khôi phục</span>
+                        </Button>
+                    </div>
                 </div>
             </header>
             <div className='content'>
                 <div className='list-room'>
                     <Table
+                        loading={isLoading}
                         columns={columns}
                         dataSource={dataSource}
                         bordered
@@ -149,7 +157,6 @@ const ListRoom = () => {
                             currentFilterRoom={dataSource.length}
                         />}
                     />
-
                 </div>
             </div>
             <CreateRoom
@@ -161,7 +168,6 @@ const ListRoom = () => {
                 isOpenModalSetupExpense={isOpenModalSetupExpense}
                 handleCloseModalSetupExpense={handleCloseModalSetupExpense}
                 listRoom={listRoom}
-
             />
             <UpdateRoom
                 roomUpdate={roomUpdate}

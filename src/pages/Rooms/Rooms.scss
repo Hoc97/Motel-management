@@ -45,6 +45,31 @@
                 }
             }
 
+            div {
+                flex: 1;
+
+
+                .btn-rollback {
+                    margin-top: 10px;
+                    margin-left: 10px;
+                    margin-bottom: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+
+                    float: right;
+
+                    .icon-create {
+                        margin-top: 3px;
+                        color: #ff0000;
+                        transform: scale(1.2);
+                    }
+                }
+
+            }
+
+
         }
 
 
@@ -77,6 +102,17 @@
                 }
             }
         }
+    }
+}
+
+.edit {
+    display: flex;
+    gap: 10px;
+
+    .icon {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
     }
 }
 

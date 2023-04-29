@@ -1,0 +1,47 @@
+.header-rollback {
+    height: 40px;
+}
+
+.content-rollback {
+    text-align: center;
+
+    .header-content {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    .list-rollback {
+
+        td {
+            &.column-name span {
+                font-weight: 600;
+            }
+
+            .edit {
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+
+                .icon {
+                    display: flex;
+                    align-items: center;
+                }
+
+                a[disabled] {
+                    color: rgba(0, 0, 0, 0.25);
+                    cursor: not-allowed;
+
+                    &.btn-delete {
+                        background-color: rgba(238, 58, 78, 0.25);
+                        color: rgba(0, 0, 0, 0.25);
+                    }
+                }
+
+            }
+        }
+
+
+
+    }
+}
