@@ -74,9 +74,31 @@ const patchEditExpensedetail = (roomID, expenseID, price) => {
 
 
 
+const getDataUserEachRoom = (id) => {
+    return axios.get(`/api/v1/rooms/${id}/lodgers`);
+};
 
 
+const postCreateUserEachRoom = (roomID, front, back, name, email, phoneNumber) => {
+    const data = new FormData();
+    data.append('front', front);
+    data.append('back', back);
+    data.append('name', name);
+    data.append('email', email);
+    data.append('phoneNumber', phoneNumber);
+    return axios.post(`/api/v1/rooms/${roomID}/lodgers`, data);
+};
 
+
+const patchEditUserEachRoom = (roomID, infoID, front, back, name, email, phoneNumber) => {
+    const data = new FormData();
+    data.append('front', front);
+    data.append('back', back);
+    data.append('name', name);
+    data.append('email', email);
+    data.append('phoneNumber', phoneNumber);
+    return axios.patch(`/api/v1/rooms/${roomID}/lodgers/${infoID}`, data);
+};
 
 
 export {
@@ -92,5 +114,8 @@ export {
     getListRollBack,
     patchRollbackRoom,
     getExpenseDetail,
-    patchEditExpensedetail
+    patchEditExpensedetail,
+    getDataUserEachRoom,
+    postCreateUserEachRoom,
+    patchEditUserEachRoom
 };

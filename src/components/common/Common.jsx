@@ -53,11 +53,30 @@ const numberWithCommas = (x) => {
 };
 
 
+const urltoFile = (url, filename, mimeType) => {
+    return (fetch(url)
+        .then(function (res) { return res.arrayBuffer(); })
+        .then(function (buf) { return new File([buf], filename, { type: mimeType }); })
+    );
+};
+
+// blob is e.target.files[0] => return data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQAB...
+const blobToBase64 = (blob) => {
+    return new Promise((resolve, _) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+    });
+};
+
+
 export {
     useDebounce,
     setCookie,
     getCookie,
     checkCookie,
     sleep,
-    numberWithCommas
+    numberWithCommas,
+    urltoFile,
+    blobToBase64
 };

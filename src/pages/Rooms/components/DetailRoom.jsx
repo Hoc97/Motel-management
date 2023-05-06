@@ -13,7 +13,7 @@ const DetailRoom = () => {
         {
             key: '1',
             label: `Khách thuê phòng`,
-            children: <InfoCustomer />,
+            children: <InfoCustomer id={id} />,
         },
         {
             key: '2',

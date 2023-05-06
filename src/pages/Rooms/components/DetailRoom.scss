@@ -18,9 +18,9 @@
 
                     .avatar {
                         height: 70px;
-                        width: 70px;
-                        object-fit: cover;
-                        border-radius: 100px;
+                        width: 100px;
+                        object-fit: contain;
+                        border-radius: 20px;
                         border: 1px solid black;
                     }
                 }

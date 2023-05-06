@@ -107,7 +107,9 @@
 
 .edit {
     display: flex;
+    justify-content: center;
     gap: 10px;
+
 
     .icon {
         cursor: pointer;
@@ -116,7 +118,8 @@
     }
 }
 
-.modal-expense {
+.modal-expense,
+.info-user {
     .header {
         display: flex;
         justify-content: flex-end;
@@ -178,6 +181,8 @@
 
     }
 }
+
+
 
 
 

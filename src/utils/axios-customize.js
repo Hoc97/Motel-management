@@ -1,7 +1,4 @@
 import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
-import rooms from '../services/fakeAPI.json';
-import dashboard from '../services/fakeAPIDashBoard.json';
 import { getCookie } from '../components/common/Common';
 
 const baseUrl = import.meta.env.VITE_APP_BACKEND_URL;
@@ -12,14 +9,6 @@ const instance = axios.create({
 });
 
 
-const mock = new MockAdapter(instance);
-
-if (mockAPI === "true") {
-    mock.onGet("http://localhost:3000/api/v1/rooms").reply(200, rooms);
-    mock.onGet("/api/v1/dashboard").reply(200, dashboard);
-} else {
-    mock.restore();
-}
 
 // instance.defaults.headers.common = { 'Authorization': `Bearer ${localStorage.getItem('access_token')}` };
 // console.log('test', instance.defaults.headers.common);

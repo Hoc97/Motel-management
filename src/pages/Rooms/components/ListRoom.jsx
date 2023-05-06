@@ -1,13 +1,13 @@
 import CreateRoom from '../Modal/Create.Room';
 import UpdateRoom from '../Modal/Update.Room';
-import { Button, Table, Tag } from 'antd';
+import { Button, Table, Tag, notification } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { SlNote } from 'react-icons/sl';
 import { AiOutlineRollback } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import HeaderListRoom from './HeaderListRoom/HeaderListRoom';
 import ActionListRoom from './Action/Action.ListRoom';
-import { getListRoom, postCreateRoom } from '../../../services/api';
+import { getListRoom } from '../../../services/api';
 import { useDebounce } from '../../../components/common/Common';
 import { useNavigate } from 'react-router-dom';
 import SetupExpense from '../Modal/Setup.Expense';
@@ -57,6 +57,7 @@ const ListRoom = () => {
             title: 'Action',
             dataIndex: 'action',
             width: '10%',
+            align: 'center',
         },
     ];
     const [isLoading, setIsLoading] = useState(true);
@@ -100,21 +101,28 @@ const ListRoom = () => {
 
     const fetchDataListRoom = async () => {
         let res = await getListRoom();
-        let newData = res.data.map(room => {
-            return {
-                id: room.id,
-                key: room.id,  //unique key
-                name: room.name,
-                status: room.status,
-                action: <ActionListRoom
-                    handleShowModalUpdate={handleShowModalUpdate}
-                    room={room}
-                    fetchDataListRoom={fetchDataListRoom}
-                />
-            };
-        });
-        setIsLoading(false);
-        setListRoom(newData);
+        if (res.status === 200) {
+            let newData = res.data.map(room => {
+                return {
+                    id: room.id,
+                    key: room.id,  //unique key
+                    name: room.name,
+                    status: room.status,
+                    action: <ActionListRoom
+                        handleShowModalUpdate={handleShowModalUpdate}
+                        room={room}
+                        fetchDataListRoom={fetchDataListRoom}
+                    />
+                };
+            });
+            setIsLoading(false);
+            setListRoom(newData);
+        } else {
+            notification.error({
+                message: "Lấy danh sách phòng không thành công",
+                duration: 5
+            });
+        }
     };
 
     const dataSource = listRoom

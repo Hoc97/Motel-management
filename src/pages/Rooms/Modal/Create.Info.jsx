@@ -1,16 +1,15 @@
 import { Modal, Form, Input, Button, message, notification, Upload, Col, InputNumber } from 'antd';
 import { useEffect, useState } from 'react';
-import { patchEditUserEachRoom } from '../../../services/api';
+import { postCreateUserEachRoom } from '../../../services/api';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { blobToBase64, urltoFile } from '../../../components/common/Common';
 
 
 
 
-const UpdateInfo = ({
-    isOpenModalUpdate,
-    handleCloseModalUpdate,
-    infoUpdate,
+const CreateInfo = ({
+    isOpenModalCreateUser,
+    setIsOpenModalCreateUser,
     fetchDataListInfo,
     roomID
 }) => {
@@ -22,67 +21,46 @@ const UpdateInfo = ({
     const [previewImage, setPreviewImage] = useState('');
     const [fileList, setFileList] = useState([]);
 
-    useEffect(() => {
-        const handleFetch = async () => {
-            if (infoUpdate.images) {
-                const newFileList = infoUpdate.images.map((image, index) => {
-                    return {
-                        key: index + 1,
-                        uid: index + 1,
-                        name: image.imageFileName,
-                        status: 'done',
-                        url: image.url,
-                    };
-                });
 
-                setFileList(newFileList);
-            }
+    useEffect(() => {
+        form.setFieldsValue({
+            name: '',
+            email: '',
+            phoneNumber: '',
+            identifyCard: []
+        });
+        return () => {
+            form.resetFields();
         };
-        handleFetch();
-    }, [infoUpdate]);
+    }, []);
 
-    useEffect(() => {
-        if (infoUpdate) {
-            form.setFieldsValue({
-                name: infoUpdate.name,
-                email: infoUpdate.email,
-                phoneNumber: infoUpdate.phoneNumber,
-
-            });
-            return () => {
-                form.resetFields();
-            };
-        }
-
-    }, [infoUpdate]);
-    useEffect(() => {
-        if (infoUpdate) {
-            form.setFieldsValue({
-                identifyCard: fileList,
-            });
-        }
-    }, [infoUpdate, fileList]);
+    const handleCloseModal = () => {
+        setIsOpenModalCreateUser(false);
+        form.resetFields();
+        setFileList([]);
+    };
 
     const handleSubmit = async (values) => {
         console.log('values', values);
         const { name, email, phoneNumber, identifyCard } = values;
         const data = await Promise.all(identifyCard.map(async item => {
-            return await urltoFile(item.url, item.name, 'image/png');
+            return await urltoFile(item.thumbUrl, item.name, 'image/png');
         }));
 
         const front = data[0];
         const back = data[1];
         setLoadingSubmit(true);
-        let res = await patchEditUserEachRoom(roomID, infoUpdate.id, front, back, name, email, phoneNumber);
-        console.log('patchEditUserEachRoom', res);
+        let res = await postCreateUserEachRoom(roomID, front, back, name, email, phoneNumber);
+        console.log('postCreateUserEachRoom', res);
         if (res.status === 204) {
-            handleCloseModalUpdate();
+            setIsOpenModalCreateUser(false);
             form.resetFields();
+            setFileList([]);
             setLoadingSubmit(false);
             fetchDataListInfo();
         } else {
             notification.error({
-                message: `Cập nhật thông tin ${name}  không thành công`,
+                message: `Tạo thông tin ${name}  không thành công`,
                 duration: 5
             });
         }
@@ -170,8 +148,8 @@ const UpdateInfo = ({
             forceRender
             width={"50vw"}
             title="Cập nhật khách thuê phòng"
-            open={isOpenModalUpdate}
-            onCancel={handleCloseModalUpdate}
+            open={isOpenModalCreateUser}
+            onCancel={() => handleCloseModal()}
             footer={[
                 <Button
                     form="myForm" key="submit" htmlType="submit" type="primary" loading={loadingSubmit} onClick={() => {
@@ -246,7 +224,6 @@ const UpdateInfo = ({
                         onRemove={(file) => handleRemoveFile(file)}
                         onPreview={handlePreview}
                         accept="image/*"
-                        defaultFileList={fileList ?? []}
                     >
                         <div>
                             {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -262,4 +239,4 @@ const UpdateInfo = ({
     );
 };
 
-export default UpdateInfo;
+export default CreateInfo;

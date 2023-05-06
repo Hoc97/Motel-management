@@ -1,4 +1,4 @@
-import { Table, Modal, Button } from 'antd';
+import { Table, Modal, Button, notification } from 'antd';
 import { useState, useEffect, useCallback } from 'react';
 import { FileAddOutlined } from '@ant-design/icons';
 import ActionExpense from '../components/Action/Action.Expense';
@@ -74,20 +74,27 @@ const SetupExpense = ({
 
     const fetchDataExpense = useCallback(async () => {
         let res = await getListExpense();
-        let newData = res.data.map(expense => {
-            return {
-                id: expense.id,
-                key: expense.id,  //unique key
-                name: <span>{expense.name}<br /> <span className='status-numberroom'>Áp dụng cho {listRoomName.length === expense.rooms.length ? <b className='all'>Tất cả ({expense.rooms.length})</b> : expense.rooms.length} phòng</span></span>,
-                money: !expense.unitPriceFlag ? numberWithCommas(expense.price) : <img className='icon-disabled' src={iconDisabled} alt='' />,
-                unitprice: expense.unitPriceFlag ? `${numberWithCommas(expense.price)}${expense.unit.replace('VNĐ', '')}` : <img className='icon-disabled' src={iconDisabled} alt='' />,
-                action: <ActionExpense
-                    handleShowModalUpdateExpense={handleShowModalUpdateExpense}
-                    expense={expense}
-                />
-            };
-        });
-        setListExpense(newData);
+        if (res.status === 200) {
+            let newData = res.data.map(expense => {
+                return {
+                    id: expense.id,
+                    key: expense.id,  //unique key
+                    name: <span>{expense.name}<br /> <span className='status-numberroom'>Áp dụng cho {listRoomName.length === expense.rooms.length ? <b className='all'>Tất cả ({expense.rooms.length})</b> : expense.rooms.length} phòng</span></span>,
+                    money: !expense.unitPriceFlag ? numberWithCommas(expense.price) : <img className='icon-disabled' src={iconDisabled} alt='' />,
+                    unitprice: expense.unitPriceFlag ? `${numberWithCommas(expense.price)}${expense.unit.replace('VNĐ', '')}` : <img className='icon-disabled' src={iconDisabled} alt='' />,
+                    action: <ActionExpense
+                        handleShowModalUpdateExpense={handleShowModalUpdateExpense}
+                        expense={expense}
+                    />
+                };
+            });
+            setListExpense(newData);
+        } else {
+            notification.error({
+                message: "Lấy danh sách chi phí không thành công",
+                duration: 5
+            });
+        }
     }, [listRoomName]);
     return (
         <Modal

@@ -3,32 +3,30 @@ import { EditOutlined } from '@ant-design/icons';
 import { message, notification, Popconfirm } from 'antd';
 const ActionInfo = ({
     handleShowModalUpdate
-    , room, fetchDataListRoom
+    , user, fetchDataListInfo
 }) => {
-
-
-    const handleDelete = async (room) => {
-        // let res = await deleteRoom(room.id);
+    const handleDelete = async (user) => {
+        // let res = await deleteRoom(expense.id);
         // if (res.status === 204) {
-        //     message.success(`Đã xóa ${room.name}`);
-        //     fetchDataListRoom();
+        //     message.success(`Đã xóa ${expense.name}`);
+        //     fetchDataListInfo();
         // } else {
-        //     notification.error({
-        //         message: "Xóa phòng không thành công",
-        //         duration: 5
-        //     });
+        notification.error({
+            message: "Xóa khách thuê không thành công",
+            duration: 5
+        });
         // }
     };
     return (
         <div className='edit'>
             <a className='icon btn-round'
-            //  onClick={() => handleShowModalUpdate(room)}
+                onClick={() => handleShowModalUpdate(user)}
             ><EditOutlined /></a>
             <Popconfirm
                 placement="topRight"
-                // title={`Bạn muốn xóa ${room.name}?`}
+                title={`Bạn muốn xóa ${user.name}?`}
                 description='Xác nhận'
-                // onConfirm={() => handleDelete(room)}
+                onConfirm={() => handleDelete(user)}
                 okText="Có"
                 cancelText="Không"
             >

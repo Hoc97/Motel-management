@@ -1,11 +1,15 @@
-import { Space, Table, message } from 'antd';
+import { Space, Table, message, Image, Button } from 'antd';
 import avatar from '../../../assets/Image/avatar/avatar1.jpg';
 import { useEffect, useState } from 'react';
 import ActionInfo from './Action/Action.Info';
 import UpdateInfo from '../Modal/Update.Info';
+import { EyeOutlined } from '@ant-design/icons';
+import { getDataUserEachRoom } from '../../../services/api';
+import { FiUserPlus } from 'react-icons/fi';
+import CreateInfo from '../Modal/Create.Info';
 
 
-const InfoCustomer = () => {
+const InfoCustomer = ({ id }) => {
     const handleEdit = (key) => {
         message.info(`${key} item`);
     };
@@ -20,14 +24,14 @@ const InfoCustomer = () => {
         {
             title: 'Name',
             dataIndex: 'name',
-            width: '25%',
+            width: '20%',
             align: 'center',
             render: (text) => <a>{text}</a>,
         },
         {
             title: 'Email',
             dataIndex: 'email',
-            width: '25%',
+            width: '20%',
             align: 'center',
         },
         {
@@ -39,7 +43,7 @@ const InfoCustomer = () => {
         {
             title: 'CMND',
             dataIndex: 'image',
-            width: '10%',
+            width: '25%',
             align: 'center',
         },
         {
@@ -54,95 +58,84 @@ const InfoCustomer = () => {
     const [isOpenModalUpdate, setIsOpenModalUpdate] = useState(false);
     const [infoUpdate, setInfoUpdate] = useState({});
     const [listInfo, setListInfo] = useState([]);
-    const handleShowModalUpdate = (room) => {
-        setInfoUpdate(room);
+    const [isOpenModalCreateUser, setIsOpenModalCreateUser] = useState(false);
+
+    const handleShowModalUpdate = (user) => {
+        setInfoUpdate(user);
         setIsOpenModalUpdate(true);
     };
-
 
     const handleCloseModalUpdate = () => {
         setIsOpenModalUpdate(false);
     };
-
-
-
-    const data = [
-        {
-            key: '1',
-            name: 'Nguyễn Văn A',
-            email: 'ngvana@gmail.com',
-            sdt: '0123456789',
-            image: <img className='avatar' src={avatar} alt='' />,
-
-            action: <ActionInfo
-                handleShowModalUpdate={handleShowModalUpdate}
-            // room={room}
-            // fetchDataListRoom={fetchDataListRoom}
-            />
-        },
-        {
-            key: '2',
-            name: 'Nguyễn Văn B',
-            email: 'ngvanb@gmail.com',
-            sdt: '0123456789',
-            image: <img className='avatar' src={avatar} alt='' />,
-            action: <ActionInfo
-                handleShowModalUpdate={handleShowModalUpdate}
-            // room={room}
-            // fetchDataListRoom={fetchDataListRoom}
-            />
-        },
-        {
-            key: '3',
-            name: 'Nguyễn Văn c',
-            email: 'ngvanc@gmail.com',
-            sdt: '0123456789',
-            image: <img className='avatar' src={avatar} alt='' />,
-            action: <ActionInfo
-                handleShowModalUpdate={handleShowModalUpdate}
-            // room={room}
-            // fetchDataListRoom={fetchDataListRoom}
-            />
-        },
-    ];
 
     useEffect(() => {
         fetchDataListInfo();
     }, []);
 
     const fetchDataListInfo = async () => {
-        // let res = await getListRoom();
-        // let newData = res.data.map(room => {
-        //     return {
-        //         id: room.id,
-        //         key: room.id,  //unique key
-        //         name: room.name,
-        //         status: room.status,
-        //         action: <ActionListRoom
-        //             handleShowModalUpdate={handleShowModalUpdate}
-        //             room={room}
-        //             fetchDataListRoom={fetchDataListRoom}
-        //         />
-        //     };
-        // });
-        // setListInfo(newData);
+        let res = await getDataUserEachRoom(id);
+        console.log('resdata', res);
+        let newData = res.data.map(user => {
+            return {
+                key: user.id,  //unique key
+                name: user.name,
+                email: user.email,
+                sdt: user.phoneNumber,
+                image:
+                    <span style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+                        <Image.PreviewGroup >
+                            {user.images.map((image, index) => {
+                                return <Image key={index} className='avatar' alt='abc' src={image.url}
+                                    preview={{
+                                        mask:
+                                            (<>
+                                                <EyeOutlined style={{ marginRight: '4px' }} />
+                                                Xem
+                                            </>),
+                                    }}
+                                />;
+                            })}
+                        </Image.PreviewGroup>
+                    </span>,
+                action: <ActionInfo
+                    handleShowModalUpdate={handleShowModalUpdate}
+                    user={user}
+                    fetchDataListInfo={fetchDataListInfo}
+                />
+            };
+        });
+        setListInfo(newData);
     };
 
     return (
         <div className='info-user'>
+            <div className='header'>
+                <Button type="primary" className='btn-setup' onClick={() => setIsOpenModalCreateUser(true)}>
+                    <span className='icon-create'><FiUserPlus /></span>
+                    <span>Thêm khách thuê </span>
+                </Button>
+            </div>
             <div className='info'>
                 <Table
                     style={{ borderRadius: '10px', backgroundColor: 'yellow' }}
                     columns={columns}
-                    dataSource={data}
+                    dataSource={listInfo}
                     pagination={false}
                 />
             </div>
+            <CreateInfo
+                isOpenModalCreateUser={isOpenModalCreateUser}
+                setIsOpenModalCreateUser={setIsOpenModalCreateUser}
+                fetchDataListInfo={fetchDataListInfo}
+                roomID={id}
+            />
             <UpdateInfo
                 isOpenModalUpdate={isOpenModalUpdate}
-                infoUpdate={infoUpdate}
                 handleCloseModalUpdate={handleCloseModalUpdate}
                 fetchDataListInfo={fetchDataListInfo}
+                infoUpdate={infoUpdate}
+                roomID={id}
             />
         </div>
     );
