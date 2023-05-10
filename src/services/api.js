@@ -100,6 +100,13 @@ const patchEditUserEachRoom = (roomID, infoID, front, back, name, email, phoneNu
     return axios.patch(`/api/v1/rooms/${roomID}/lodgers/${infoID}`, data);
 };
 
+const getDataRevenue = (month, year) => {
+    return axios.get(`/api/v1/bills?month=${month}&year=${year}`);
+};
+
+const postCreateDataRevenue = (createDate, roomIds, applyAll) => {
+    return axios.post('/api/v1/bills', { createDate, roomIds, applyAll });
+};
 
 export {
     getListRoom,
@@ -117,5 +124,7 @@ export {
     patchEditExpensedetail,
     getDataUserEachRoom,
     postCreateUserEachRoom,
-    patchEditUserEachRoom
+    patchEditUserEachRoom,
+    getDataRevenue,
+    postCreateDataRevenue
 };

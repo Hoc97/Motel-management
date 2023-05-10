@@ -212,6 +212,7 @@ const UpdateExpense = ({
                             style={{
                                 width: '100%',
                             }}
+                            min={0}
                         />
                     </Form.Item>)}
                 {component === 'unitpricepayment' && (
@@ -230,6 +231,7 @@ const UpdateExpense = ({
                             style={{
                                 width: '100%',
                             }}
+                            min={0}
                         />
                     </Form.Item>
                 )}

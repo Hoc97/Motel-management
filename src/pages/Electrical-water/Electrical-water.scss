@@ -1,0 +1,119 @@
+.revenue {
+    .header-revenue {
+        .month-container {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #ebeced;
+            background-color: #f7f7f7;
+            border-radius: 10px;
+            padding: 0px 10px;
+
+            .pre-year {
+                margin-right: 10px;
+            }
+
+            .next-year {
+                margin-left: 10px;
+            }
+
+            .pre-year,
+            .next-year {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+                cursor: pointer;
+
+                .text {
+                    margin-top: -4px;
+                    font-size: 16px;
+                }
+
+                .icon {
+                    transform: scale(1.5);
+                }
+            }
+
+            .item-month {
+                text-align: center;
+                padding: 5px;
+                cursor: pointer;
+
+                &.active {
+                    background-color: #15a05c;
+                    color: #fff;
+                    border-radius: 5px;
+                    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+                }
+            }
+        }
+
+        .header-title {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 28px;
+        }
+
+        .btn-create {
+            float: right;
+            text-align: right;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+
+            .icon-create {
+                color: #15a05c;
+            }
+        }
+    }
+
+    .content {
+        margin-top: 10px;
+
+        .list-revenue {
+
+            :where(.css-dev-only-do-not-override-mxhywb).ant-table-wrapper .ant-table-tbody > tr > td {
+                padding: 16px 5px;
+            }
+
+            td {
+                &.column-name {
+                    font-weight: 600;
+                }
+
+                &.column-highlight {
+                    font-weight: 600;
+                    color: #333;
+                }
+
+                &.other {
+                    border-inline-end: 1px solid #f0f0f0;
+                }
+
+                .edit {
+                    display: flex;
+                    gap: 10px;
+
+                    .icon {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+
+
+            }
+        }
+    }
+}
+
+.ant-input-number-handler-wrap {
+    visibility: hidden;
+}
